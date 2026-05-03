@@ -1,0 +1,2547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Francys Lanza — a cozy corner of the internet</title>
+<style>
+/* Cozy internet space — Francys Lanza */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --paper: #f7edda;
+  --paper-deep: #eadbc0;
+  --ink: #1a1a1a;
+  --ink-soft: #3a3530;
+  --ink-fade: #8a8276;
+  --accent-shadow: rgba(40, 30, 20, 0.08);
+  --window-bg: #fbf6ec;
+  --tape: rgba(220, 200, 140, 0.55);
+
+  --font-hand: 'Caveat', cursive;
+  --font-serif: 'EB Garamond', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+}
+
+.app.theme-warm {
+  --paper: #efe4cf;
+  --paper-deep: #e4d6bb;
+  --window-bg: #f6ebd4;
+}
+.app.theme-cool {
+  --paper: #ecebe6;
+  --paper-deep: #dedcd5;
+  --window-bg: #f4f3ee;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  overflow: hidden;
+  height: 100%;
+  cursor: default;
+}
+
+#root, .app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app {
+  background: var(--paper) url("uploads/Francys Home.png") center center / cover no-repeat;
+}
+
+/* Subtle paper grain via SVG noise */
+.paper-grain {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse 58% 48% at 50% 48%, rgba(255, 251, 239, 0.88) 0%, transparent 72%),
+    radial-gradient(ellipse 88% 68% at 50% 50%, transparent 0%, rgba(128, 88, 35, 0.08) 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: cover, 200px 200px;
+  z-index: 0;
+  mix-blend-mode: multiply;
+  opacity: 0.68;
+  display: none;
+}
+
+/* ================== HERO INTRO ================== */
+.hero-intro {
+  position: absolute;
+  left: 50%; top: 50.5%;
+  transform: translate(-50%, -50%);
+  width: min(520px, 42vw);
+  text-align: center;
+  z-index: 5;
+  pointer-events: none;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-illustration {
+  width: clamp(260px, 22vw, 340px);
+  height: auto;
+  margin-bottom: 2px;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  /* gentle idle bob */
+  animation: heroBob 6s ease-in-out infinite;
+}
+@keyframes heroBob {
+  0%, 100% { transform: translateY(0) rotate(-0.5deg); }
+  50% { transform: translateY(-4px) rotate(0.5deg); }
+}
+
+.hero-kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--ink-fade);
+  margin-bottom: 148px;
+  text-transform: lowercase;
+}
+
+.hero-headline {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(21px, 1.45vw, 26px);
+  line-height: 1.45;
+  color: var(--ink);
+  margin: 0;
+  text-wrap: pretty;
+}
+.hero-headline em {
+  font-style: italic;
+  font-family: var(--font-hand);
+  font-size: 1.38em;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  vertical-align: -0.05em;
+}
+.hero-headline .hl {
+  font-style: italic;
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 1px;
+}
+
+.hero-sub { display: none; }
+
+/* ================== DESK OBJECTS ================== */
+.desk-layer {
+  position: absolute; inset: 0;
+  z-index: 4;
+}
+
+.desk-object {
+  position: absolute;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transform-origin: center;
+  transition: filter 240ms ease;
+  font-family: inherit;
+}
+
+.desk-object-art {
+  width: 100%;
+  aspect-ratio: 1.1;
+  display: block;
+  transition: transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(7px 8px 0 rgba(70, 45, 15, 0.06));
+  opacity: 0;
+}
+
+.app.no-sway .desk-object {
+  transform: translate(-50%, -50%) !important;
+}
+.app.no-sway .desk-object .desk-object-art {
+  transform: none !important;
+}
+
+.desk-object.is-hover .desk-object-art {
+  transform: rotate(-4deg) scale(1.06) translateY(-3px);
+  filter: drop-shadow(0 6px 0 var(--accent-shadow));
+  opacity: 0;
+}
+
+.desk-object.is-open .desk-object-art {
+  opacity: 0;
+}
+
+.desk-object-label {
+  font-family: var(--font-hand);
+  font-size: 28px;
+  color: var(--ink);
+  letter-spacing: 0.005em;
+  display: inline-flex;
+  gap: 4px;
+  align-items: baseline;
+  white-space: nowrap;
+  transform: rotate(-2deg);
+  position: relative;
+  padding: 0 10px 8px;
+  opacity: 0;
+}
+.desk-object-label::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  bottom: 0;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--label-line, #d99b25);
+  transform: rotate(-1.5deg);
+}
+.desk-object-about { --label-line: #d4632e; }
+.desk-object-cases { --label-line: #728057; }
+.desk-object-services { --label-line: #d89b24; }
+.desk-object-now { --label-line: #6f815b; }
+.desk-object-writing { --label-line: #dda12a; }
+.desk-object-contact { --label-line: #d89b24; }
+
+.desk-object.is-hover .desk-object-label {
+  text-decoration: none;
+}
+
+.desk-object-arrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-fade);
+}
+
+/* doodle style filter — pencil softens, marker thickens via filter */
+.app.doodle-pencil .desk-object svg path,
+.app.doodle-pencil .desk-object svg circle,
+.app.doodle-pencil .scatter-item svg path,
+.app.doodle-pencil .scatter-item svg circle {
+  opacity: 0.62;
+}
+.app.doodle-marker .desk-object svg path,
+.app.doodle-marker .scatter-item svg path {
+  stroke-width: 3 !important;
+}
+
+/* ================== SCATTER ================== */
+.scatter-layer {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  display: none;
+}
+.scatter-item {
+  position: absolute;
+  transform-origin: center;
+}
+
+/* Bottom-left pet corner from the reference board */
+.pet-corner {
+  position: absolute;
+  left: 8.5%;
+  bottom: 8.5%;
+  z-index: 3;
+  width: 250px;
+  height: 88px;
+  pointer-events: none;
+  display: none;
+}
+.pet-line {
+  position: absolute;
+  left: -42px;
+  right: -8px;
+  bottom: 3px;
+  height: 18px;
+  border-bottom: 2px solid var(--ink);
+  border-radius: 50%;
+  transform: rotate(-1deg);
+  opacity: 0.9;
+}
+.pet {
+  position: absolute;
+  bottom: 7px;
+  width: 54px;
+  height: 54px;
+  border: 2px solid var(--ink);
+  border-radius: 48% 48% 42% 42%;
+  background: #fbf6ec;
+  box-shadow: 5px 7px 0 rgba(70, 45, 15, 0.08);
+}
+.pet::before,
+.pet::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  width: 4px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+.pet::before { left: 18px; }
+.pet::after { right: 18px; }
+.pet span::before {
+  content: "";
+  position: absolute;
+  left: 22px;
+  top: 31px;
+  width: 12px;
+  height: 6px;
+  border-bottom: 2px solid var(--ink);
+  border-radius: 0 0 999px 999px;
+}
+.pet-fluffy {
+  left: 40px;
+  background:
+    radial-gradient(circle at 14px 8px, #fbf6ec 0 9px, transparent 10px),
+    radial-gradient(circle at 28px 5px, #fbf6ec 0 11px, transparent 12px),
+    radial-gradient(circle at 42px 9px, #fbf6ec 0 9px, transparent 10px),
+    #fbf6ec;
+}
+.pet-golden {
+  left: 98px;
+  background: #d99b58;
+}
+.pet-golden::before,
+.pet-golden::after,
+.pet-panda::before,
+.pet-panda::after { top: 20px; }
+.pet-golden span::after,
+.pet-panda span::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  width: 15px;
+  height: 22px;
+  border: 2px solid var(--ink);
+  background: inherit;
+  border-radius: 50% 50% 60% 60%;
+}
+.pet-golden span::after { left: -9px; transform: rotate(20deg); }
+.pet-panda {
+  left: 156px;
+  background:
+    radial-gradient(circle at 13px 14px, #1a1a1a 0 8px, transparent 9px),
+    radial-gradient(circle at 41px 14px, #1a1a1a 0 8px, transparent 9px),
+    #fbf6ec;
+}
+.pet-panda span::after { right: -9px; transform: rotate(-20deg); }
+
+/* ================== FLOATING WINDOWS ================== */
+.windows-layer {
+  position: absolute; inset: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+/* ================== NOTEBOOK PAPER WINDOW ================== */
+.floating-window {
+  position: absolute;
+  width: 460px;
+  max-height: 78vh;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  /* Notebook paper: warm cream with subtle grid */
+  background-color: var(--window-bg);
+  background-image:
+    /* horizontal rules */
+    linear-gradient(transparent 0, transparent 31px, rgba(120, 100, 60, 0.16) 31px, rgba(120, 100, 60, 0.16) 32px, transparent 32px),
+    /* vertical rules (lighter) */
+    linear-gradient(90deg, transparent 0, transparent 31px, rgba(120, 100, 60, 0.10) 31px, rgba(120, 100, 60, 0.10) 32px, transparent 32px);
+  background-size: 32px 32px, 32px 32px;
+  background-position: 0 8px, 0 0;
+  /* Slight rotation — like it was placed casually */
+  transform: rotate(var(--paper-tilt, -1.2deg));
+  filter: drop-shadow(8px 12px 0 rgba(40, 30, 20, 0.06))
+          drop-shadow(14px 22px 18px rgba(40, 30, 20, 0.18));
+  /* Torn / deckled edges via clip-path — irregular zig-zag on top + bottom, slight on sides */
+  --tear-top: polygon(
+    0% 5%, 3% 3%, 6% 6%, 10% 2%, 14% 5%, 18% 3%, 22% 6%, 26% 2%, 30% 5%,
+    34% 3%, 38% 6%, 42% 2%, 46% 4%, 50% 6%, 54% 3%, 58% 5%, 62% 3%,
+    66% 6%, 70% 2%, 74% 5%, 78% 3%, 82% 6%, 86% 2%, 90% 5%, 94% 3%, 97% 6%, 100% 4%,
+    100% 96%, 97% 97%, 94% 94%, 90% 98%, 86% 95%, 82% 97%, 78% 94%, 74% 98%,
+    70% 95%, 66% 97%, 62% 94%, 58% 98%, 54% 95%, 50% 97%, 46% 94%, 42% 98%,
+    38% 95%, 34% 97%, 30% 94%, 26% 98%, 22% 95%, 18% 97%, 14% 94%, 10% 98%,
+    6% 95%, 3% 97%, 0% 95%
+  );
+  clip-path: var(--tear-top);
+  animation: windowIn 380ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+/* Stagger tilts so multiple open windows look natural */
+.floating-window:nth-of-type(2n) { --paper-tilt: 1.5deg; }
+.floating-window:nth-of-type(3n) { --paper-tilt: -2.2deg; }
+.floating-window:nth-of-type(4n) { --paper-tilt: 0.8deg; }
+
+@keyframes windowIn {
+  from { opacity: 0; transform: scale(0.9) rotate(calc(var(--paper-tilt, -1.2deg) - 3deg)); }
+  to { opacity: 1; transform: scale(1) rotate(var(--paper-tilt, -1.2deg)); }
+}
+
+/* The "chrome" is just the top tape strip area — entire paper is draggable */
+.window-chrome {
+  height: 18px;
+  position: relative;
+  cursor: grab;
+  flex-shrink: 0;
+}
+.window-chrome:active { cursor: grabbing; }
+.floating-window:hover { cursor: grab; }
+
+/* Masking tape — translucent amber, soft shadow, rotated */
+.w-tape {
+  position: absolute;
+  top: -16px;
+  width: 92px;
+  height: 30px;
+  background:
+    linear-gradient(180deg,
+      rgba(232, 210, 140, 0.78) 0%,
+      rgba(218, 192, 118, 0.72) 50%,
+      rgba(232, 210, 140, 0.78) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(180, 150, 80, 0.22),
+    3px 4px 6px rgba(40, 30, 20, 0.18),
+    inset 0 1px 0 rgba(255, 240, 200, 0.4);
+  transform: rotate(-7deg);
+  z-index: 4;
+  /* subtle paper texture on tape */
+  background-image:
+    linear-gradient(180deg,
+      rgba(232, 210, 140, 0.78) 0%,
+      rgba(218, 192, 118, 0.72) 50%,
+      rgba(232, 210, 140, 0.78) 100%),
+    repeating-linear-gradient(45deg,
+      transparent 0 3px,
+      rgba(180, 150, 80, 0.04) 3px 4px);
+  mix-blend-mode: multiply;
+}
+.w-tape::before, .w-tape::after {
+  /* Torn tape ends — irregular edge */
+  content: "";
+  position: absolute;
+  top: -1px; bottom: -1px;
+  width: 8px;
+  background: inherit;
+}
+.w-tape::before {
+  left: -4px;
+  clip-path: polygon(40% 0, 100% 0, 100% 100%, 60% 100%, 80% 70%, 30% 50%, 70% 30%);
+}
+.w-tape::after {
+  right: -4px;
+  clip-path: polygon(0 0, 60% 0, 40% 30%, 80% 50%, 30% 70%, 50% 100%, 0 100%);
+}
+.w-tape-l { left: 24px; }
+.w-tape-r { right: 36px; transform: rotate(8deg); }
+
+.w-close {
+  position: absolute;
+  right: 14px; top: 18px;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--window-bg);
+  border: 1.4px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  z-index: 5;
+  transition: background 160ms, transform 160ms;
+}
+.w-close:hover { background: rgba(26, 26, 26, 0.06); transform: rotate(90deg); }
+
+.window-inner {
+  padding: 38px 44px 48px;
+  overflow-y: auto;
+  flex: 1;
+  font-size: 15px;
+  line-height: 32px; /* match grid */
+  color: var(--ink-soft);
+}
+.window-inner::-webkit-scrollbar { width: 6px; }
+.window-inner::-webkit-scrollbar-thumb { background: rgba(26,26,26,0.15); border-radius: 3px; }
+
+/* ================== WINDOW CONTENT ================== */
+/* Optional left margin rule (subtle red) */
+.window-inner {
+  position: relative;
+}
+.window-inner::before {
+  content: "";
+  position: absolute;
+  left: 30px; top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(180, 60, 50, 0.18);
+  pointer-events: none;
+}
+.window-kicker {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: var(--ink-fade);
+  margin-bottom: 6px;
+  text-transform: lowercase;
+}
+.window-title {
+  font-family: var(--font-hand);
+  font-size: 38px;
+  font-weight: 500;
+  margin: 0 0 18px;
+  color: var(--ink);
+  letter-spacing: 0.005em;
+  line-height: 1.1;
+}
+.window-body p {
+  margin: 0 0 14px;
+}
+.window-body .lede {
+  font-size: 16px;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.window-body em {
+  font-style: italic;
+  font-family: var(--font-hand);
+  font-size: 1.15em;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.window-body .aside {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-fade);
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(26, 26, 26, 0.18);
+  line-height: 1.55;
+}
+
+/* Services */
+.service-list { list-style: none; padding: 0; margin: 0 0 12px; }
+.service-list li {
+  display: flex; gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px dashed rgba(26, 26, 26, 0.12);
+}
+.service-list li:last-child { border-bottom: 0; }
+.service-list .num {
+  font-family: var(--font-mono);
+  color: var(--ink-fade);
+  font-size: 11px;
+  padding-top: 4px;
+  width: 18px;
+}
+.service-list strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 15.5px;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.service-list p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
+
+/* Cases */
+.case {
+  padding: 12px 0;
+  border-bottom: 1px dashed rgba(26, 26, 26, 0.12);
+}
+.case:last-child { border-bottom: 0; }
+.case-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.case-co {
+  font-family: var(--font-hand);
+  font-size: 22px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.case-role {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--ink-fade);
+  text-align: right;
+}
+.case-line {
+  font-size: 14px !important;
+  margin: 4px 0 !important;
+  color: var(--ink-soft);
+}
+
+/* Now */
+.now-date {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-fade);
+  margin-bottom: 14px !important;
+}
+.now-list { list-style: none; padding: 0; margin: 0; }
+.now-list li {
+  display: flex;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 14.5px;
+  align-items: baseline;
+}
+.now-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--ink-fade);
+  background: rgba(26, 26, 26, 0.05);
+  padding: 2px 6px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  min-width: 70px;
+  text-align: center;
+}
+
+/* Writing */
+.writing-list { list-style: none; padding: 0; margin: 0; }
+.writing-list li {
+  padding: 12px 0;
+  border-bottom: 1px dashed rgba(26, 26, 26, 0.12);
+}
+.writing-list li:last-child { border-bottom: 0; }
+.w-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-fade);
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+.w-title {
+  font-family: var(--font-hand);
+  font-size: 21px;
+  color: var(--ink);
+  margin-bottom: 2px;
+  line-height: 1.15;
+}
+.w-blurb {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* Contact */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 12px 0;
+}
+.contact-card {
+  display: block;
+  padding: 12px 14px;
+  border: 1.4px solid var(--ink);
+  border-radius: 3px;
+  text-decoration: none;
+  color: inherit;
+  background: transparent;
+  transition: background 160ms, transform 160ms;
+}
+.contact-card:hover {
+  background: rgba(26, 26, 26, 0.04);
+  transform: translateY(-1px) rotate(-0.5deg);
+}
+.cc-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--ink-fade);
+  margin-bottom: 4px;
+}
+.cc-value {
+  font-family: var(--font-hand);
+  font-size: 19px;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 2px;
+}
+.cc-aside {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-fade);
+}
+
+/* ================== CURSOR TRAIL ================== */
+.cursor-trail {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+.trail-dot {
+  position: absolute;
+  width: 12px; height: 12px;
+  transform: translate(-50%, -50%);
+  animation: trailFade 900ms ease forwards;
+  opacity: 0.7;
+}
+.trail-v1 { width: 14px; height: 14px; }
+.trail-v2 { width: 10px; height: 10px; }
+@keyframes trailFade {
+  from { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(0.4) rotate(40deg); }
+}
+
+/* ================== FOOTER NOTE ================== */
+.desk-footer-note {
+  position: fixed;
+  right: 4.5%;
+  bottom: 6.3%;
+  min-width: 270px;
+  height: 72px;
+  background: rgba(251, 246, 236, 0.78);
+  border: 1.5px solid rgba(26, 26, 26, 0.65);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 28px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--ink);
+  z-index: 60;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  filter: drop-shadow(7px 9px 0 rgba(70, 45, 15, 0.07));
+  display: none;
+}
+.desk-footer-note::before,
+.desk-footer-note::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 18px;
+  border-color: rgba(26, 26, 26, 0.35);
+}
+.desk-footer-note::before {
+  left: 8px;
+  top: 8px;
+  border-left: 2px solid;
+  border-top: 2px solid;
+  transform: rotate(-8deg);
+}
+.desk-footer-note::after {
+  right: 8px;
+  bottom: 8px;
+  border-right: 2px solid;
+  border-bottom: 2px solid;
+  transform: rotate(7deg);
+}
+.footer-heart {
+  font-family: var(--font-hand);
+  color: #df6a35;
+  font-size: 26px;
+  line-height: 1;
+}
+.footer-tape {
+  position: absolute;
+  right: -8px;
+  top: -15px;
+  width: 58px;
+  height: 18px;
+  background: rgba(232, 210, 140, 0.82);
+  border: 1px solid rgba(180, 150, 80, 0.25);
+  transform: rotate(34deg);
+}
+
+/* ================== STATUS BAR ================== */
+.status-bar {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 28px;
+  background: var(--paper);
+  border-top: 1px dashed rgba(26, 26, 26, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 18px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--ink-soft);
+  z-index: 60;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.status-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #4a8a4a;
+  box-shadow: 0 0 0 0 rgba(74, 138, 74, 0.5);
+  animation: statusPulse 2.4s ease-in-out infinite;
+}
+@keyframes statusPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 138, 74, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(74, 138, 74, 0); }
+}
+.status-bar .sep { color: var(--ink-fade); }
+.status-btn {
+  background: transparent;
+  border: 0;
+  color: var(--ink-soft);
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  letter-spacing: inherit;
+  margin-left: auto;
+  padding: 4px 8px;
+  border-radius: 2px;
+}
+.status-btn:hover { background: rgba(26, 26, 26, 0.06); }
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 900px) {
+  .hero-intro { width: 82vw; top: 48%; }
+  .hero-illustration { width: clamp(220px, 56vw, 290px); }
+  .hero-kicker { margin-bottom: 112px; }
+  .hero-headline { font-size: clamp(18px, 5vw, 23px); }
+  .floating-window { width: min(92vw, 460px); }
+  .desk-object { width: 86px !important; }
+  .desk-object-label { font-size: 21px; }
+  .pet-corner { transform: scale(0.72); transform-origin: left bottom; left: 4%; bottom: 5%; }
+  .desk-footer-note { transform: scale(0.72); transform-origin: right bottom; right: 3%; bottom: 3%; }
+}
+
+</style>
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#f4ede1"/>
+    <path d="M 30 35 L 70 35 L 70 65 L 30 65 Z" stroke="#1a1a1a" stroke-width="1.6" fill="none"/>
+  </svg>
+</template>
+</head>
+<body>
+<div id="root"></div>
+<script>
+window.addEventListener('unhandledrejection', (e) => {
+  const m = e.reason && (e.reason.message || String(e.reason));
+  if (m && /Can't find variable: output|output is not defined/.test(m)) e.preventDefault();
+});
+</script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script>
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+// individual prototypes don't re-roll it. Ships a consistent set of controls so you
+// don't hand-draw <input type="range">, segmented radios, steppers, etc.
+//
+// Usage (in an HTML file that loads React + Babel):
+//
+//   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+//     "primaryColor": "#D97757",
+//     "fontSize": 16,
+//     "density": "regular",
+//     "dark": false
+//   }/*EDITMODE-END*/;
+//
+//   function App() {
+//     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+//     return (
+//       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+//         Hello
+//         <TweaksPanel>
+//           <TweakSection label="Typography" />
+//           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+//                        onChange={(v) => setTweak('fontSize', v)} />
+//           <TweakRadio  label="Density" value={t.density}
+//                        options={['compact', 'regular', 'comfy']}
+//                        onChange={(v) => setTweak('density', v)} />
+//           <TweakSection label="Theme" />
+//           <TweakColor  label="Primary" value={t.primaryColor}
+//                        onChange={(v) => setTweak('primaryColor', v)} />
+//           <TweakToggle label="Dark mode" value={t.dark}
+//                        onChange={(v) => setTweak('dark', v)} />
+//         </TweaksPanel>
+//       </div>
+//     );
+//   }
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;width:100%;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+`;
+
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+  // useState-style call doesn't write a "[object Object]" key into the persisted
+  // JSON block.
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null ? keyOrEdits : {
+      [keyOrEdits]: val
+    };
+    setValues(prev => ({
+      ...prev,
+      ...edits
+    }));
+    window.parent.postMessage({
+      type: '__edit_mode_set_keys',
+      edits
+    }, '*');
+  }, []);
+  return [values, setTweak];
+}
+
+// ── TweaksPanel ─────────────────────────────────────────────────────────────
+// Floating shell. Registers the protocol listener BEFORE announcing
+// availability — if the announce ran first, the host's activate could land
+// before our handler exists and the toolbar toggle would silently no-op.
+// The close button posts __edit_mode_dismissed so the host's toolbar toggle
+// flips off in lockstep; the host echoes __deactivate_edit_mode back which
+// is what actually hides the panel.
+function TweaksPanel({
+  title = 'Tweaks',
+  children
+}) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({
+    x: 16,
+    y: 16
+  });
+  const PAD = 16;
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth,
+      h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y))
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+  React.useEffect(() => {
+    const onMsg = e => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({
+      type: '__edit_mode_available'
+    }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({
+      type: '__edit_mode_dismissed'
+    }, '*');
+  };
+  const onDragStart = e => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX,
+      sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = ev => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy)
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+  if (!open) return null;
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("style", null, __TWEAKS_STYLE), /*#__PURE__*/React.createElement("div", {
+    ref: dragRef,
+    className: "twk-panel",
+    "data-noncommentable": "",
+    style: {
+      right: offsetRef.current.x,
+      bottom: offsetRef.current.y
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "twk-hd",
+    onMouseDown: onDragStart
+  }, /*#__PURE__*/React.createElement("b", null, title), /*#__PURE__*/React.createElement("button", {
+    className: "twk-x",
+    "aria-label": "Close tweaks",
+    onMouseDown: e => e.stopPropagation(),
+    onClick: dismiss
+  }, "\u2715")), /*#__PURE__*/React.createElement("div", {
+    className: "twk-body"
+  }, children)));
+}
+
+// ── Layout helpers ──────────────────────────────────────────────────────────
+
+function TweakSection({
+  label,
+  children
+}) {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "twk-sect"
+  }, label), children);
+}
+function TweakRow({
+  label,
+  value,
+  children,
+  inline = false
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: inline ? 'twk-row twk-row-h' : 'twk-row'
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "twk-lbl"
+  }, /*#__PURE__*/React.createElement("span", null, label), value != null && /*#__PURE__*/React.createElement("span", {
+    className: "twk-val"
+  }, value)), children);
+}
+
+// ── Controls ────────────────────────────────────────────────────────────────
+
+function TweakSlider({
+  label,
+  value,
+  min = 0,
+  max = 100,
+  step = 1,
+  unit = '',
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement(TweakRow, {
+    label: label,
+    value: `${value}${unit}`
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "range",
+    className: "twk-slider",
+    min: min,
+    max: max,
+    step: step,
+    value: value,
+    onChange: e => onChange(Number(e.target.value))
+  }));
+}
+function TweakToggle({
+  label,
+  value,
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "twk-row twk-row-h"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "twk-lbl"
+  }, /*#__PURE__*/React.createElement("span", null, label)), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "twk-toggle",
+    "data-on": value ? '1' : '0',
+    role: "switch",
+    "aria-checked": !!value,
+    onClick: () => onChange(!value)
+  }, /*#__PURE__*/React.createElement("i", null)));
+}
+function TweakRadio({
+  label,
+  value,
+  options,
+  onChange
+}) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  const opts = options.map(o => typeof o === 'object' ? o : {
+    value: o,
+    label: o
+  });
+  const idx = Math.max(0, opts.findIndex(o => o.value === value));
+  const n = opts.length;
+
+  // The active value is read by pointer-move handlers attached for the lifetime
+  // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+  const segAt = clientX => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor((clientX - r.left - 2) / inner * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+  const onPointerDown = e => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = ev => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return /*#__PURE__*/React.createElement(TweakRow, {
+    label: label
+  }, /*#__PURE__*/React.createElement("div", {
+    ref: trackRef,
+    role: "radiogroup",
+    onPointerDown: onPointerDown,
+    className: dragging ? 'twk-seg dragging' : 'twk-seg'
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "twk-seg-thumb",
+    style: {
+      left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+      width: `calc((100% - 4px) / ${n})`
+    }
+  }), opts.map(o => /*#__PURE__*/React.createElement("button", {
+    key: o.value,
+    type: "button",
+    role: "radio",
+    "aria-checked": o.value === value
+  }, o.label))));
+}
+function TweakSelect({
+  label,
+  value,
+  options,
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement(TweakRow, {
+    label: label
+  }, /*#__PURE__*/React.createElement("select", {
+    className: "twk-field",
+    value: value,
+    onChange: e => onChange(e.target.value)
+  }, options.map(o => {
+    const v = typeof o === 'object' ? o.value : o;
+    const l = typeof o === 'object' ? o.label : o;
+    return /*#__PURE__*/React.createElement("option", {
+      key: v,
+      value: v
+    }, l);
+  })));
+}
+function TweakText({
+  label,
+  value,
+  placeholder,
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement(TweakRow, {
+    label: label
+  }, /*#__PURE__*/React.createElement("input", {
+    className: "twk-field",
+    type: "text",
+    value: value,
+    placeholder: placeholder,
+    onChange: e => onChange(e.target.value)
+  }));
+}
+function TweakNumber({
+  label,
+  value,
+  min,
+  max,
+  step = 1,
+  unit = '',
+  onChange
+}) {
+  const clamp = n => {
+    if (min != null && n < min) return min;
+    if (max != null && n > max) return max;
+    return n;
+  };
+  const startRef = React.useRef({
+    x: 0,
+    val: 0
+  });
+  const onScrubStart = e => {
+    e.preventDefault();
+    startRef.current = {
+      x: e.clientX,
+      val: value
+    };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = ev => {
+      const dx = ev.clientX - startRef.current.x;
+      const raw = startRef.current.val + dx * step;
+      const snapped = Math.round(raw / step) * step;
+      onChange(clamp(Number(snapped.toFixed(decimals))));
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "twk-num"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "twk-num-lbl",
+    onPointerDown: onScrubStart
+  }, label), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    value: value,
+    min: min,
+    max: max,
+    step: step,
+    onChange: e => onChange(clamp(Number(e.target.value)))
+  }), unit && /*#__PURE__*/React.createElement("span", {
+    className: "twk-num-unit"
+  }, unit));
+}
+function TweakColor({
+  label,
+  value,
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "twk-row twk-row-h"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "twk-lbl"
+  }, /*#__PURE__*/React.createElement("span", null, label)), /*#__PURE__*/React.createElement("input", {
+    type: "color",
+    className: "twk-swatch",
+    value: value,
+    onChange: e => onChange(e.target.value)
+  }));
+}
+function TweakButton({
+  label,
+  onClick,
+  secondary = false
+}) {
+  return /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: secondary ? 'twk-btn secondary' : 'twk-btn',
+    onClick: onClick
+  }, label);
+}
+Object.assign(window, {
+  useTweaks,
+  TweaksPanel,
+  TweakSection,
+  TweakRow,
+  TweakSlider,
+  TweakToggle,
+  TweakRadio,
+  TweakSelect,
+  TweakText,
+  TweakNumber,
+  TweakColor,
+  TweakButton
+});
+
+;
+
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+// Hand-drawn SVG objects. Single-stroke ink aesthetic.
+// All drawn with rough, slightly imperfect lines — not vector-perfect.
+
+const ink = "#1a1a1a";
+const stroke = {
+  stroke: ink,
+  strokeWidth: 1.6,
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+  fill: "none"
+};
+const strokeFat = {
+  ...stroke,
+  strokeWidth: 2.2
+};
+
+// --- Notebook (Case Studies) ---
+const NotebookDoodle = () => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 120 110",
+  width: "100%",
+  height: "100%"
+}, /*#__PURE__*/React.createElement("path", {
+  d: "M 18 92 Q 60 100 102 92",
+  stroke: ink,
+  strokeWidth: "0.8",
+  fill: "none",
+  opacity: "0.3",
+  strokeDasharray: "2 3"
+}), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 22 25 Q 24 22 28 22 L 92 22 Q 96 22 98 25 L 98 88 Q 96 91 92 91 L 28 91 Q 24 91 22 88 Z"
+}, strokeFat)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 22 25 Q 26 27 30 25 L 30 88 Q 26 90 22 88"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 40 38 L 88 39"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 40 48 L 86 49"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 40 58 L 88 58"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 40 68 L 80 69"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 40 78 L 84 78"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 92 22 Q 88 28 94 32"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 32 16 L 33 18 L 35 18 L 33.5 19.5 L 34 22 L 32 20.5 L 30 22 L 30.5 19.5 L 29 18 L 31 18 Z"
+}, stroke)));
+
+// --- Laptop / Terminal (Services) ---
+const LaptopDoodle = () => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 130 110",
+  width: "100%",
+  height: "100%"
+}, /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 14 86 Q 14 82 18 82 L 112 82 Q 116 82 116 86 L 118 92 Q 118 95 114 95 L 16 95 Q 12 95 12 92 Z"
+}, strokeFat)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 56 88 L 74 88"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 22 24 Q 22 20 26 20 L 104 20 Q 108 20 108 24 L 108 80 Q 108 82 104 82 L 26 82 Q 22 82 22 80 Z"
+}, strokeFat)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 32 34 L 36 38 L 32 42"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 41 42 L 52 42"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 32 52 L 70 52"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 38 60 L 90 60"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 38 68 L 64 68"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 32 76 L 50 76"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 100 14 L 101 11 M 100 14 L 100 17 M 100 14 L 97 14 M 100 14 L 103 14"
+}, stroke)));
+
+// --- Self portrait (About) ---
+const SelfPortraitDoodle = () => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 110 120",
+  width: "100%",
+  height: "100%"
+}, /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 28 38 Q 22 56 26 78 Q 30 84 36 86"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 82 38 Q 88 58 84 80 Q 80 86 74 88"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 32 44 Q 30 64 38 78 Q 48 88 60 86 Q 74 82 78 68 Q 80 50 76 40 Q 68 30 54 30 Q 40 30 32 44 Z"
+}, strokeFat)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 30 40 Q 36 22 56 22 Q 76 24 82 42"
+}, strokeFat)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 38 30 Q 42 24 50 24"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 64 24 Q 72 26 78 34"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 44 58 Q 46 56 48 58"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 64 58 Q 66 56 68 58"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 56 62 Q 55 68 58 70"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 50 75 Q 56 78 62 75"
+}, stroke)), /*#__PURE__*/React.createElement("circle", {
+  cx: "32",
+  cy: "64",
+  r: "1.4",
+  fill: ink
+}), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 36 88 Q 22 94 18 108"
+}, strokeFat)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 74 88 Q 88 94 92 108"
+}, strokeFat)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 92 32 L 93 28 M 92 32 L 92 36 M 92 32 L 88 32 M 92 32 L 96 32"
+}, stroke)));
+
+// --- Calendar (Now) ---
+const CalendarDoodle = () => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 110 110",
+  width: "100%",
+  height: "100%"
+}, /*#__PURE__*/React.createElement("circle", _extends({
+  cx: "32",
+  cy: "14",
+  r: "3"
+}, stroke)), /*#__PURE__*/React.createElement("circle", _extends({
+  cx: "78",
+  cy: "14",
+  r: "3"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 32 17 L 32 24"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 78 17 L 78 24"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 18 22 Q 18 18 22 18 L 88 18 Q 92 18 92 22 L 92 96 Q 92 100 88 100 L 22 100 Q 18 100 18 96 Z"
+}, strokeFat)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 28 32 L 82 32"
+}, stroke)), /*#__PURE__*/React.createElement("g", null, [0, 1, 2, 3, 4, 5, 6].map(c => [0, 1, 2, 3].map(r => /*#__PURE__*/React.createElement("circle", {
+  key: `${c}-${r}`,
+  cx: 28 + c * 9,
+  cy: 44 + r * 12,
+  r: "1",
+  fill: ink
+})))), /*#__PURE__*/React.createElement("ellipse", _extends({
+  cx: "55",
+  cy: "68",
+  rx: "6",
+  ry: "5"
+}, stroke, {
+  transform: "rotate(-8 55 68)"
+})), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 30 90 Q 50 92 78 88"
+}, stroke)));
+
+// --- Papers stack (Writing) ---
+const PapersDoodle = () => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 130 110",
+  width: "100%",
+  height: "100%"
+}, /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 28 28 L 90 22 L 96 80 L 32 86 Z"
+}, stroke, {
+  transform: "rotate(-6 60 55)"
+})), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 26 32 L 92 28 L 94 86 L 28 88 Z"
+}, stroke, {
+  transform: "rotate(3 60 60)"
+})), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 24 30 L 94 30 L 94 88 L 24 88 Z"
+}, strokeFat)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 32 42 L 84 42"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 32 50 L 86 50"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 32 58 L 78 58"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 32 66 L 84 66"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 32 74 L 70 74"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 100 16 L 116 22 L 112 32 L 96 26 Z"
+}, strokeFat, {
+  transform: "rotate(15 106 24)"
+})), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 95 26 L 91 32"
+}, strokeFat, {
+  transform: "rotate(15 106 24)"
+})), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 88 35 L 86 39"
+}, stroke)));
+
+// --- Mailbox (Contact) ---
+const MailboxDoodle = () => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 110 120",
+  width: "100%",
+  height: "100%"
+}, /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 52 78 L 52 110"
+}, strokeFat)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 58 78 L 58 110"
+}, strokeFat)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 36 110 Q 55 113 76 110"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 18 38 Q 18 28 28 28 L 84 28 Q 92 28 92 38 L 92 76 Q 92 80 88 80 L 22 80 Q 18 80 18 76 Z"
+}, strokeFat)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 18 42 Q 18 32 28 32 L 84 32 Q 92 32 92 42"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 28 46 L 60 46 L 60 74 L 28 74 Z"
+}, stroke)), /*#__PURE__*/React.createElement("circle", {
+  cx: "55",
+  cy: "60",
+  r: "1.6",
+  fill: ink
+}), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 92 36 L 92 50"
+}, strokeFat)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 92 36 L 102 36 L 100 44 L 92 44"
+}, strokeFat)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 64 42 L 86 42 L 86 56 L 64 56 Z"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 64 42 L 75 50 L 86 42"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 16 22 Q 14 18 18 16 Q 22 14 22 20 Q 22 14 26 16 Q 30 18 28 22 Q 24 28 22 30 Q 20 28 16 22 Z"
+}, stroke)));
+
+// --- Decorative scattered marks ---
+const TinyStar = ({
+  style
+}) => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 20 20",
+  width: "100%",
+  height: "100%",
+  style: style
+}, /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 10 2 L 11 8 L 17 9 L 12 12 L 14 18 L 10 14 L 6 18 L 8 12 L 3 9 L 9 8 Z"
+}, stroke)));
+const TinySparkle = ({
+  style
+}) => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 20 20",
+  width: "100%",
+  height: "100%",
+  style: style
+}, /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 10 2 L 10 18 M 2 10 L 18 10 M 4 4 L 16 16 M 16 4 L 4 16"
+}, stroke)));
+const TinyHeart = ({
+  style
+}) => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 20 20",
+  width: "100%",
+  height: "100%",
+  style: style
+}, /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 10 16 Q 4 12 4 7 Q 4 3 7 3 Q 9 3 10 6 Q 11 3 13 3 Q 16 3 16 7 Q 16 12 10 16 Z"
+}, stroke)));
+const TinyCloud = ({
+  style
+}) => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 30 18",
+  width: "100%",
+  height: "100%",
+  style: style
+}, /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 6 14 Q 2 14 2 10 Q 2 7 5 7 Q 6 3 10 3 Q 14 2 16 6 Q 20 5 22 8 Q 26 8 26 12 Q 26 14 22 14 Z"
+}, stroke)));
+const TinySquiggle = ({
+  style
+}) => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 30 12",
+  width: "100%",
+  height: "100%",
+  style: style
+}, /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 2 6 Q 6 2 10 6 Q 14 10 18 6 Q 22 2 28 6"
+}, stroke)));
+const TinyArrow = ({
+  style
+}) => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 40 30",
+  width: "100%",
+  height: "100%",
+  style: style
+}, /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 4 20 Q 12 4 28 8 Q 32 9 34 14"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 30 10 L 34 14 L 30 18"
+}, stroke)));
+const TinyDot = ({
+  style
+}) => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 8 8",
+  width: "100%",
+  height: "100%",
+  style: style
+}, /*#__PURE__*/React.createElement("circle", {
+  cx: "4",
+  cy: "4",
+  r: "1.4",
+  fill: ink
+}));
+const TinyPlant = ({
+  style
+}) => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 30 40",
+  width: "100%",
+  height: "100%",
+  style: style
+}, /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 15 38 Q 15 26 15 16"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 15 26 Q 6 22 4 14 Q 10 14 15 22"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 15 22 Q 24 18 26 10 Q 20 10 15 18"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 8 38 L 22 38"
+}, strokeFat)));
+const TinyMug = ({
+  style
+}) => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 30 30",
+  width: "100%",
+  height: "100%",
+  style: style
+}, /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 6 10 L 22 10 L 21 24 Q 20 26 14 26 Q 8 26 7 24 Z"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 22 13 Q 26 13 26 17 Q 26 21 22 21"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 11 5 Q 12 7 11 9"
+}, stroke)), /*#__PURE__*/React.createElement("path", _extends({
+  d: "M 15 4 Q 16 6 15 8"
+}, stroke)));
+window.Objects = {
+  NotebookDoodle,
+  LaptopDoodle,
+  SelfPortraitDoodle,
+  CalendarDoodle,
+  PapersDoodle,
+  MailboxDoodle,
+  TinyStar,
+  TinySparkle,
+  TinyHeart,
+  TinyCloud,
+  TinySquiggle,
+  TinyArrow,
+  TinyDot,
+  TinyPlant,
+  TinyMug
+};
+
+;
+
+// Floating window content for each "object"
+
+const ContentBlock = ({
+  title,
+  kicker,
+  children
+}) => /*#__PURE__*/React.createElement("div", {
+  className: "window-content"
+}, kicker && /*#__PURE__*/React.createElement("div", {
+  className: "window-kicker"
+}, kicker), /*#__PURE__*/React.createElement("h2", {
+  className: "window-title"
+}, title), /*#__PURE__*/React.createElement("div", {
+  className: "window-body"
+}, children));
+
+// --- About ---
+const AboutContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
+  kicker: "01 \u2014 about",
+  title: "Hi, I'm Francys."
+}, /*#__PURE__*/React.createElement("p", {
+  className: "lede"
+}, "I'm a Lead Data Scientist & ML Engineer based in Mexico, with", " ", /*#__PURE__*/React.createElement("em", null, "six years"), " of building production machine learning in fintech."), /*#__PURE__*/React.createElement("p", null, "I help teams move from notebooks and fragmented pipelines to deployable, monitored, governed ML systems \u2014 the kind that survive a Tuesday morning incident and a Friday afternoon audit."), /*#__PURE__*/React.createElement("p", null, "Mostly I work in Databricks. Mostly the problems are credit risk, fraud, and the quiet infrastructure that lets models actually ship."), /*#__PURE__*/React.createElement("p", {
+  className: "aside"
+}, "Off the clock \u2014 I mentor, I speak about practical AI adoption, and I'm finishing my MSc in AI at Woolf University."));
+
+// --- Services ---
+const ServicesContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
+  kicker: "02 \u2014 services",
+  title: "What I help with."
+}, /*#__PURE__*/React.createElement("p", {
+  className: "lede"
+}, "Fractional ML & MLOps consulting \u2014 hourly or project-based."), /*#__PURE__*/React.createElement("ul", {
+  className: "service-list"
+}, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "num"
+}, "i."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Production ML on Databricks"), /*#__PURE__*/React.createElement("p", null, "MLflow setup, model lifecycle, deployment standards."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "num"
+}, "ii."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Feature store design"), /*#__PURE__*/React.createElement("p", null, "Offline + online stores, governed reuse across products."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "num"
+}, "iii."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Credit risk & fraud modeling"), /*#__PURE__*/React.createElement("p", null, "Underwriting engines, real-time decisioning, graph-based fraud."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "num"
+}, "iv."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Monitoring & drift"), /*#__PURE__*/React.createElement("p", null, "Detection frameworks, automated retraining, model governance."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "num"
+}, "v."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Fractional ML leadership"), /*#__PURE__*/React.createElement("p", null, "For teams scaling from notebooks to production.")))), /*#__PURE__*/React.createElement("p", {
+  className: "aside"
+}, "Best fit: project-based engagements where a team needs senior execution, architecture, and production hardening."));
+
+// --- Case Studies ---
+const CasesContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
+  kicker: "03 \u2014 selected work",
+  title: "Things I've shipped."
+}, /*#__PURE__*/React.createElement("div", {
+  className: "case"
+}, /*#__PURE__*/React.createElement("div", {
+  className: "case-meta"
+}, /*#__PURE__*/React.createElement("span", {
+  className: "case-co"
+}, "Bankaya"), /*#__PURE__*/React.createElement("span", {
+  className: "case-role"
+}, "Lead Data Scientist \xB7 2024 \u2014 now")), /*#__PURE__*/React.createElement("p", {
+  className: "case-line"
+}, "Cut model delivery cycles from ", /*#__PURE__*/React.createElement("em", null, "4\u20136 months"), " to ", /*#__PURE__*/React.createElement("em", null, "2\u20134 weeks"), " by standardizing the ML platform across financial products."), /*#__PURE__*/React.createElement("p", {
+  className: "case-line"
+}, "Designed an offline/online feature store + sub-second inference infra for credit & fraud decisioning."), /*#__PURE__*/React.createElement("p", {
+  className: "case-line"
+}, "Shipped agentic AI diagnostic workflows for stakeholder reporting.")), /*#__PURE__*/React.createElement("div", {
+  className: "case"
+}, /*#__PURE__*/React.createElement("div", {
+  className: "case-meta"
+}, /*#__PURE__*/React.createElement("span", {
+  className: "case-co"
+}, "Clara"), /*#__PURE__*/React.createElement("span", {
+  className: "case-role"
+}, "Data Scientist \xB7 2022 \u2014 2024")), /*#__PURE__*/React.createElement("p", {
+  className: "case-line"
+}, "Replaced rule-based underwriting with an ML credit engine \u2014", /*#__PURE__*/React.createElement("em", null, " doubled approval rates"), " while preserving portfolio risk."), /*#__PURE__*/React.createElement("p", {
+  className: "case-line"
+}, "Integrated graph-based fraud detection into automated decisioning.")), /*#__PURE__*/React.createElement("div", {
+  className: "case"
+}, /*#__PURE__*/React.createElement("div", {
+  className: "case-meta"
+}, /*#__PURE__*/React.createElement("span", {
+  className: "case-co"
+}, "Nubank"), /*#__PURE__*/React.createElement("span", {
+  className: "case-role"
+}, "Senior Data Scientist \xB7 2021 \u2014 2022")), /*#__PURE__*/React.createElement("p", {
+  className: "case-line"
+}, "Real-time fraud models for high-volume transactions; sub-second approval pipelines across millions of events.")), /*#__PURE__*/React.createElement("div", {
+  className: "case"
+}, /*#__PURE__*/React.createElement("div", {
+  className: "case-meta"
+}, /*#__PURE__*/React.createElement("span", {
+  className: "case-co"
+}, "True Home, HITSS, BBVA, Bancaribe"), /*#__PURE__*/React.createElement("span", {
+  className: "case-role"
+}, "2016 \u2014 2021")), /*#__PURE__*/React.createElement("p", {
+  className: "case-line"
+}, "Underwriting & pricing models \xB7 AWS microservices \xB7 early risk & data roles across LATAM fintech and banking.")));
+
+// --- Now ---
+const NowContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
+  kicker: "04 \u2014 now",
+  title: "What I'm up to."
+}, /*#__PURE__*/React.createElement("p", {
+  className: "now-date"
+}, "As of November 2026 \u2014 Mexico City, GMT-6"), /*#__PURE__*/React.createElement("ul", {
+  className: "now-list"
+}, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "now-tag"
+}, "building"), "agentic ML diagnostic workflows at Bankaya"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "now-tag"
+}, "studying"), "MSc in AI at Woolf \u2014 currently in scalable systems & real-time inference"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "now-tag"
+}, "writing"), "a slow series of notes on what production ML actually costs"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "now-tag"
+}, "open to"), "2 fractional engagements starting Q1 2027"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "now-tag"
+}, "reading"), /*#__PURE__*/React.createElement("em", null, "Designing Machine Learning Systems"), " \u2014 Chip Huyen"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "now-tag"
+}, "tinkering"), "a small LightGBM monitoring dashboard in spare hours")), /*#__PURE__*/React.createElement("p", {
+  className: "aside"
+}, "This page updates roughly every month. Last touched today."));
+
+// --- Writing ---
+const WritingContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
+  kicker: "05 \u2014 notes",
+  title: "Writing."
+}, /*#__PURE__*/React.createElement("p", {
+  className: "lede"
+}, "Short, mostly unfinished. I publish when the idea is more useful than it is polished."), /*#__PURE__*/React.createElement("ul", {
+  className: "writing-list"
+}, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("div", {
+  className: "w-meta"
+}, "draft \xB7 est. dec 2026"), /*#__PURE__*/React.createElement("div", {
+  className: "w-title"
+}, "Notebooks are not the problem."), /*#__PURE__*/React.createElement("div", {
+  className: "w-blurb"
+}, "On why \"we'll productionize it later\" is the most expensive sentence in ML.")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("div", {
+  className: "w-meta"
+}, "draft \xB7 est. jan 2027"), /*#__PURE__*/React.createElement("div", {
+  className: "w-title"
+}, "Feature stores, plainly."), /*#__PURE__*/React.createElement("div", {
+  className: "w-blurb"
+}, "A short, honest tour of when you actually need one (and when you don't).")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("div", {
+  className: "w-meta"
+}, "notes"), /*#__PURE__*/React.createElement("div", {
+  className: "w-title"
+}, "Drift is a UX problem."), /*#__PURE__*/React.createElement("div", {
+  className: "w-blurb"
+}, "A scattered set of thoughts on monitoring as conversation, not alarm.")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("div", {
+  className: "w-meta"
+}, "talks"), /*#__PURE__*/React.createElement("div", {
+  className: "w-title"
+}, "Practical AI adoption \u2014 for teams that already have too many tools."), /*#__PURE__*/React.createElement("div", {
+  className: "w-blurb"
+}, "A talk I keep refining. Available on request."))), /*#__PURE__*/React.createElement("p", {
+  className: "aside"
+}, "\u2731 this corner of the desk is intentionally a little empty."));
+
+// --- Contact ---
+const ContactContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
+  kicker: "06 \u2014 say hello",
+  title: "Let's talk."
+}, /*#__PURE__*/React.createElement("p", {
+  className: "lede"
+}, "I read everything. The fastest way to me is email or a 30-minute intro call."), /*#__PURE__*/React.createElement("div", {
+  className: "contact-grid"
+}, /*#__PURE__*/React.createElement("a", {
+  className: "contact-card",
+  href: "mailto:mariafrancysucv@gmail.com"
+}, /*#__PURE__*/React.createElement("div", {
+  className: "cc-label"
+}, "email"), /*#__PURE__*/React.createElement("div", {
+  className: "cc-value"
+}, "mariafrancysucv@gmail.com"), /*#__PURE__*/React.createElement("div", {
+  className: "cc-aside"
+}, "usually within a day")), /*#__PURE__*/React.createElement("a", {
+  className: "contact-card",
+  href: "#",
+  onClick: e => e.preventDefault()
+}, /*#__PURE__*/React.createElement("div", {
+  className: "cc-label"
+}, "book a call"), /*#__PURE__*/React.createElement("div", {
+  className: "cc-value"
+}, "30-min intro \u2192"), /*#__PURE__*/React.createElement("div", {
+  className: "cc-aside"
+}, "no pitch, just a chat")), /*#__PURE__*/React.createElement("a", {
+  className: "contact-card",
+  href: "#",
+  onClick: e => e.preventDefault()
+}, /*#__PURE__*/React.createElement("div", {
+  className: "cc-label"
+}, "linkedin"), /*#__PURE__*/React.createElement("div", {
+  className: "cc-value"
+}, "/in/francys-lanza"), /*#__PURE__*/React.createElement("div", {
+  className: "cc-aside"
+}, "DMs open")), /*#__PURE__*/React.createElement("a", {
+  className: "contact-card",
+  href: "#",
+  onClick: e => e.preventDefault()
+}, /*#__PURE__*/React.createElement("div", {
+  className: "cc-label"
+}, "cv"), /*#__PURE__*/React.createElement("div", {
+  className: "cc-value"
+}, "download pdf \u2192"), /*#__PURE__*/React.createElement("div", {
+  className: "cc-aside"
+}, "2026 edition"))), /*#__PURE__*/React.createElement("p", {
+  className: "aside"
+}, "Based in Mexico, working remotely. Comfortable across LATAM, US, and EU hours."));
+window.WindowContent = {
+  about: AboutContent,
+  services: ServicesContent,
+  cases: CasesContent,
+  now: NowContent,
+  writing: WritingContent,
+  contact: ContactContent
+};
+
+;
+
+// Main app — cozy desk, floating windows, ambient interactions.
+
+const DeskIcons = window.Objects;
+
+// --- Object positions on the "desk" — % of viewport ---
+// Centered intro paragraph, objects scattered around it.
+const DESK_OBJECTS = [{
+  id: "about",
+  label: "about",
+  Icon: DeskIcons.SelfPortraitDoodle,
+  pos: {
+    left: "18%",
+    top: "25%"
+  },
+  sway: 4.2,
+  w: 128
+}, {
+  id: "cases",
+  label: "selected work",
+  Icon: DeskIcons.NotebookDoodle,
+  pos: {
+    left: "20%",
+    top: "61%"
+  },
+  sway: 5.1,
+  w: 134
+}, {
+  id: "services",
+  label: "services",
+  Icon: DeskIcons.LaptopDoodle,
+  pos: {
+    left: "50%",
+    top: "14%"
+  },
+  sway: 3.6,
+  w: 140
+}, {
+  id: "now",
+  label: "now",
+  Icon: DeskIcons.CalendarDoodle,
+  pos: {
+    right: "17%",
+    top: "27%"
+  },
+  sway: 4.7,
+  w: 120
+}, {
+  id: "writing",
+  label: "notes",
+  Icon: DeskIcons.PapersDoodle,
+  pos: {
+    right: "20%",
+    top: "60%"
+  },
+  sway: 4.0,
+  w: 128
+}, {
+  id: "contact",
+  label: "say hello",
+  Icon: DeskIcons.MailboxDoodle,
+  pos: {
+    left: "50%",
+    top: "82%"
+  },
+  sway: 5.3,
+  w: 118
+}];
+
+// --- Decorative scatter (clouds, stars, etc) — purely atmospheric ---
+const SCATTER = [{
+  C: DeskIcons.TinyCloud,
+  top: "9%",
+  left: "24%",
+  w: 38,
+  rot: -6,
+  op: 0.75
+}, {
+  C: DeskIcons.TinyCloud,
+  top: "18%",
+  right: "29%",
+  w: 30,
+  rot: 8,
+  op: 0.65
+}, {
+  C: DeskIcons.TinyCloud,
+  top: "76%",
+  right: "39%",
+  w: 30,
+  rot: -4,
+  op: 0.6
+}, {
+  C: DeskIcons.TinyStar,
+  top: "13%",
+  left: "35%",
+  w: 18,
+  rot: 12,
+  op: 0.85
+}, {
+  C: DeskIcons.TinyStar,
+  top: "69%",
+  left: "32%",
+  w: 18,
+  rot: -8,
+  op: 0.75
+}, {
+  C: DeskIcons.TinyStar,
+  top: "78%",
+  right: "20%",
+  w: 14,
+  rot: 14,
+  op: 0.75
+}, {
+  C: DeskIcons.TinySparkle,
+  top: "5%",
+  left: "54%",
+  w: 15,
+  rot: 0,
+  op: 0.75
+}, {
+  C: DeskIcons.TinySparkle,
+  top: "31%",
+  right: "15%",
+  w: 12,
+  rot: 0,
+  op: 0.65
+}, {
+  C: DeskIcons.TinyHeart,
+  top: "46%",
+  left: "6%",
+  w: 14,
+  rot: -10,
+  op: 0.75
+}, {
+  C: DeskIcons.TinyHeart,
+  top: "69%",
+  left: "50%",
+  w: 16,
+  rot: 8,
+  op: 0.8
+}, {
+  C: DeskIcons.TinyHeart,
+  top: "41%",
+  right: "7%",
+  w: 15,
+  rot: 10,
+  op: 0.75
+}, {
+  C: DeskIcons.TinySquiggle,
+  top: "38%",
+  left: "31%",
+  w: 32,
+  rot: -4,
+  op: 0.55
+}, {
+  C: DeskIcons.TinySquiggle,
+  top: "49%",
+  right: "10%",
+  w: 32,
+  rot: 6,
+  op: 0.55
+}, {
+  C: DeskIcons.TinyDot,
+  top: "27%",
+  left: "29%",
+  w: 6,
+  op: 0.7
+}, {
+  C: DeskIcons.TinyDot,
+  top: "16%",
+  right: "9%",
+  w: 6,
+  op: 0.65
+}, {
+  C: DeskIcons.TinyDot,
+  top: "67%",
+  right: "31%",
+  w: 6,
+  op: 0.65
+}, {
+  C: DeskIcons.TinyDot,
+  top: "79%",
+  left: "36%",
+  w: 6,
+  op: 0.65
+}, {
+  C: DeskIcons.TinyPlant,
+  bottom: "7%",
+  left: "5%",
+  w: 88,
+  op: 0.85
+}];
+
+// ===== Idle sway hook =====
+function useIdleSway(period = 4) {
+  const [t, setT] = React.useState(0);
+  React.useEffect(() => {
+    let raf,
+      start = performance.now();
+    const tick = now => {
+      setT((now - start) / 1000);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  return Math.sin(t / period * Math.PI * 2);
+}
+
+// ===== Object on desk =====
+function DeskObject({
+  obj,
+  onOpen,
+  isOpen
+}) {
+  const sway = useIdleSway(obj.sway);
+  const rot = sway * 1.6;
+  const ty = sway * 1.8;
+  const [hover, setHover] = React.useState(false);
+  return /*#__PURE__*/React.createElement("button", {
+    className: `desk-object desk-object-${obj.id} ${isOpen ? "is-open" : ""} ${hover ? "is-hover" : ""}`,
+    style: {
+      ...obj.pos,
+      width: obj.w,
+      transform: `translate(-50%, -50%) rotate(${rot}deg) translateY(${ty}px)`
+    },
+    onClick: () => onOpen(obj.id),
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+    "aria-label": obj.label
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "desk-object-art"
+  }, /*#__PURE__*/React.createElement(obj.Icon, null)), /*#__PURE__*/React.createElement("div", {
+    className: "desk-object-label"
+  }, /*#__PURE__*/React.createElement("span", null, obj.label), hover && /*#__PURE__*/React.createElement("span", {
+    className: "desk-object-arrow"
+  }, "\u2197")));
+}
+
+// ===== Floating window =====
+function FloatingWindow({
+  id,
+  onClose,
+  index
+}) {
+  const Comp = window.WindowContent[id];
+  const ref = React.useRef(null);
+  const [pos, setPos] = React.useState(null);
+  const [drag, setDrag] = React.useState(null);
+  React.useEffect(() => {
+    // Place window in a thoughtful spot — center-ish, slightly offset per window
+    const offset = index * 22;
+    setPos({
+      x: window.innerWidth / 2 - 230 + offset,
+      y: Math.max(60, window.innerHeight / 2 - 280 + offset)
+    });
+  }, []);
+  const onPointerDown = e => {
+    if (!pos) return;
+    if (e.target.closest(".w-close, a, button, .window-body")) return;
+    setDrag({
+      x: e.clientX - pos.x,
+      y: e.clientY - pos.y
+    });
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+  const onPointerMove = e => {
+    if (!drag) return;
+    setPos({
+      x: e.clientX - drag.x,
+      y: e.clientY - drag.y
+    });
+  };
+  const onPointerUp = e => {
+    setDrag(null);
+    if (e.currentTarget.releasePointerCapture) {
+      try {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      } catch {}
+    }
+  };
+  if (!Comp || !pos) return null;
+  return /*#__PURE__*/React.createElement("div", {
+    ref: ref,
+    className: "floating-window",
+    style: {
+      left: pos.x,
+      top: pos.y,
+      zIndex: 50 + index
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "window-chrome",
+    onPointerDown: onPointerDown,
+    onPointerMove: onPointerMove,
+    onPointerUp: onPointerUp
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "w-tape w-tape-l"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "w-tape w-tape-r"
+  }), /*#__PURE__*/React.createElement("button", {
+    className: "w-close",
+    onClick: onClose,
+    "aria-label": "close"
+  }, /*#__PURE__*/React.createElement("svg", {
+    viewBox: "0 0 20 20",
+    width: "14",
+    height: "14"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M 5 5 L 15 15 M 15 5 L 5 15",
+    stroke: "#1a1a1a",
+    strokeWidth: "1.6",
+    strokeLinecap: "round"
+  })))), /*#__PURE__*/React.createElement("div", {
+    className: "window-inner"
+  }, /*#__PURE__*/React.createElement(Comp, null)));
+}
+
+// ===== Cursor trail =====
+function CursorTrail() {
+  const [dots, setDots] = React.useState([]);
+  React.useEffect(() => {
+    let lastX = 0,
+      lastY = 0,
+      idCounter = 0;
+    const onMove = e => {
+      const dx = e.clientX - lastX,
+        dy = e.clientY - lastY;
+      if (Math.hypot(dx, dy) < 22) return;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      const id = idCounter++;
+      const variant = Math.floor(Math.random() * 3);
+      setDots(d => [...d.slice(-12), {
+        id,
+        x: e.clientX,
+        y: e.clientY,
+        variant
+      }]);
+      setTimeout(() => {
+        setDots(d => d.filter(p => p.id !== id));
+      }, 900);
+    };
+    window.addEventListener("pointermove", onMove);
+    return () => window.removeEventListener("pointermove", onMove);
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "cursor-trail"
+  }, dots.map(d => /*#__PURE__*/React.createElement("div", {
+    key: d.id,
+    className: `trail-dot trail-v${d.variant}`,
+    style: {
+      left: d.x,
+      top: d.y
+    }
+  }, d.variant === 0 && /*#__PURE__*/React.createElement(DeskIcons.TinyDot, null), d.variant === 1 && /*#__PURE__*/React.createElement(DeskIcons.TinySparkle, null), d.variant === 2 && /*#__PURE__*/React.createElement(DeskIcons.TinyStar, null))));
+}
+
+// ===== Status bar =====
+function StatusBar({
+  soundOn,
+  onToggleSound
+}) {
+  const [time, setTime] = React.useState(new Date());
+  React.useEffect(() => {
+    const i = setInterval(() => setTime(new Date()), 1000 * 30);
+    return () => clearInterval(i);
+  }, []);
+  const fmt = time.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+    timeZone: "America/Mexico_City"
+  });
+  return /*#__PURE__*/React.createElement("div", {
+    className: "status-bar"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "status-dot"
+  }), /*#__PURE__*/React.createElement("span", null, "currently available \xB7 accepting Q1 2027 engagements"), /*#__PURE__*/React.createElement("span", {
+    className: "sep"
+  }, "\xB7"), /*#__PURE__*/React.createElement("span", null, "mexico city, ", fmt), /*#__PURE__*/React.createElement("span", {
+    className: "sep"
+  }, "\xB7"), /*#__PURE__*/React.createElement("button", {
+    className: "status-btn",
+    onClick: onToggleSound
+  }, soundOn ? "♪ sound on" : "♪ sound off"));
+}
+
+function DeskFooterNote() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "desk-footer-note",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("span", null, "made with"), /*#__PURE__*/React.createElement("span", {
+    className: "footer-heart"
+  }, "\u2661"), /*#__PURE__*/React.createElement("span", null, "and coffee"), /*#__PURE__*/React.createElement("span", {
+    className: "footer-tape"
+  }));
+}
+function PetCorner() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "pet-corner",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "pet-line"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "pet pet-fluffy"
+  }, /*#__PURE__*/React.createElement("span", null)), /*#__PURE__*/React.createElement("div", {
+    className: "pet pet-golden"
+  }, /*#__PURE__*/React.createElement("span", null)), /*#__PURE__*/React.createElement("div", {
+    className: "pet pet-panda"
+  }, /*#__PURE__*/React.createElement("span", null)));
+}
+
+// ===== Ambient sound (subtle pink-noise loop via WebAudio) =====
+function useAmbientSound(on) {
+  const ctxRef = React.useRef(null);
+  const nodeRef = React.useRef(null);
+  React.useEffect(() => {
+    if (!on) {
+      if (nodeRef.current) {
+        try {
+          nodeRef.current.gain.gain.linearRampToValueAtTime(0, ctxRef.current.currentTime + 0.4);
+        } catch {}
+      }
+      return;
+    }
+    if (!ctxRef.current) {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      ctxRef.current = new Ctx();
+    }
+    const ctx = ctxRef.current;
+    if (ctx.state === "suspended") ctx.resume();
+
+    // pink-ish noise via biquad-filtered white noise
+    const buf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+    const ch = buf.getChannelData(0);
+    let b0 = 0,
+      b1 = 0,
+      b2 = 0;
+    for (let i = 0; i < ch.length; i++) {
+      const w = Math.random() * 2 - 1;
+      b0 = 0.99765 * b0 + w * 0.0990460;
+      b1 = 0.96300 * b1 + w * 0.2965164;
+      b2 = 0.57000 * b2 + w * 1.0526913;
+      ch[i] = (b0 + b1 + b2 + w * 0.1848) * 0.08;
+    }
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    src.loop = true;
+    const lp = ctx.createBiquadFilter();
+    lp.type = "lowpass";
+    lp.frequency.value = 700;
+    const gain = ctx.createGain();
+    gain.gain.value = 0;
+    gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + 0.6);
+    src.connect(lp);
+    lp.connect(gain);
+    gain.connect(ctx.destination);
+    src.start();
+    nodeRef.current = {
+      src,
+      gain,
+      lp
+    };
+    return () => {
+      try {
+        gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.3);
+        src.stop(ctx.currentTime + 0.4);
+      } catch {}
+    };
+  }, [on]);
+}
+
+// ===== Tweaks (globals from tweaks-panel.jsx) =====
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "doodleStyle": "ink",
+  "paperTone": "cream",
+  "deskDensity": "balanced",
+  "showScatter": true,
+  "cursorTrail": true,
+  "idleSway": true
+} /*EDITMODE-END*/;
+function App() {
+  const [openOrder, setOpenOrder] = React.useState([]);
+  const [soundOn, setSoundOn] = React.useState(false);
+  useAmbientSound(soundOn);
+  const [T, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const open = id => {
+    setOpenOrder(o => [...o.filter(x => x !== id), id]);
+  };
+  const close = id => {
+    setOpenOrder(o => o.filter(x => x !== id));
+  };
+  const filteredObjects = T.deskDensity === "sparse" ? DESK_OBJECTS.filter(o => ["about", "cases", "services", "contact"].includes(o.id)) : DESK_OBJECTS;
+  return /*#__PURE__*/React.createElement("div", {
+    className: `app theme-${T.paperTone} doodle-${T.doodleStyle} ${T.idleSway ? "" : "no-sway"}`
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "paper-grain"
+  }), T.showScatter && /*#__PURE__*/React.createElement("div", {
+    className: "scatter-layer"
+  }, SCATTER.map((s, i) => {
+    const {
+      C,
+      w,
+      op = 0.7,
+      rot = 0,
+      ...pos
+    } = s;
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      className: "scatter-item",
+      style: {
+        ...pos,
+        width: w,
+        opacity: op,
+        transform: `rotate(${rot}deg)`
+      }
+    }, /*#__PURE__*/React.createElement(C, null));
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "hero-intro"
+  }, /*#__PURE__*/React.createElement("img", {
+    className: "hero-illustration",
+    src: "francys-illustration.png",
+    alt: "Francys, sitting cross-legged with a laptop and a mug"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "hero-kicker"
+  }, "\u2731 welcome to my corner of the internet"), /*#__PURE__*/React.createElement("h1", {
+    className: "hero-headline"
+  }, "Hi, I'm ", /*#__PURE__*/React.createElement("em", null, "Francys"), ". I'm a ", /*#__PURE__*/React.createElement("span", {
+    className: "hl"
+  }, "Lead Data Scientist"), " & ML engineer who helps fintechs ship ", /*#__PURE__*/React.createElement("em", null, "production"), " machine learning \u2014 calmly, on Databricks, without the drama."), /*#__PURE__*/React.createElement("div", {
+    className: "hero-sub"
+  }, "click anything \xB7 drag the windows \xB7 stay a while")), /*#__PURE__*/React.createElement(PetCorner, null), /*#__PURE__*/React.createElement("div", {
+    className: "desk-layer"
+  }, filteredObjects.map(obj => /*#__PURE__*/React.createElement(DeskObject, {
+    key: obj.id,
+    obj: obj,
+    onOpen: open,
+    isOpen: openOrder.includes(obj.id)
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "windows-layer"
+  }, openOrder.map((id, idx) => /*#__PURE__*/React.createElement(FloatingWindow, {
+    key: id,
+    id: id,
+    index: idx,
+    onClose: () => close(id)
+  }))), T.cursorTrail && /*#__PURE__*/React.createElement(CursorTrail, null), /*#__PURE__*/React.createElement(DeskFooterNote, null), /*#__PURE__*/React.createElement(TweaksPanel, {
+    title: "Tweaks"
+  }, /*#__PURE__*/React.createElement(TweakSection, {
+    label: "aesthetic"
+  }, /*#__PURE__*/React.createElement(TweakSelect, {
+    label: "doodle style",
+    value: T.doodleStyle,
+    onChange: v => setTweak("doodleStyle", v),
+    options: [{
+      value: "ink",
+      label: "ink (default)"
+    }, {
+      value: "pencil",
+      label: "pencil"
+    }, {
+      value: "marker",
+      label: "marker"
+    }]
+  }), /*#__PURE__*/React.createElement(TweakSelect, {
+    label: "paper tone",
+    value: T.paperTone,
+    onChange: v => setTweak("paperTone", v),
+    options: [{
+      value: "cream",
+      label: "cream"
+    }, {
+      value: "warm",
+      label: "warm beige"
+    }, {
+      value: "cool",
+      label: "cool stone"
+    }]
+  }), /*#__PURE__*/React.createElement(TweakRadio, {
+    label: "desk density",
+    value: T.deskDensity,
+    onChange: v => setTweak("deskDensity", v),
+    options: ["sparse", "balanced"]
+  })), /*#__PURE__*/React.createElement(TweakSection, {
+    label: "motion"
+  }, /*#__PURE__*/React.createElement(TweakToggle, {
+    label: "cursor doodle trail",
+    value: T.cursorTrail,
+    onChange: v => setTweak("cursorTrail", v)
+  }), /*#__PURE__*/React.createElement(TweakToggle, {
+    label: "idle sway",
+    value: T.idleSway,
+    onChange: v => setTweak("idleSway", v)
+  }), /*#__PURE__*/React.createElement(TweakToggle, {
+    label: "decorative scatter",
+    value: T.showScatter,
+    onChange: v => setTweak("showScatter", v)
+  }))));
+}
+ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));
+
+</script>
+</body>
+</html>
