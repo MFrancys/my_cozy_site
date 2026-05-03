@@ -19,11 +19,11 @@ const DESK_OBJECTS = [
   },
   {
     id: "now", label: "now", Icon: DeskIcons.CalendarDoodle,
-    pos: { right: "17%", top: "27%" }, sway: 4.7, w: 120,
+    pos: { left: "81%", top: "28%" }, sway: 4.7, w: 120,
   },
   {
     id: "writing", label: "notes", Icon: DeskIcons.PapersDoodle,
-    pos: { right: "20%", top: "60%" }, sway: 4.0, w: 128,
+    pos: { left: "76%", top: "61%" }, sway: 4.0, w: 128,
   },
   {
     id: "contact", label: "say hello", Icon: DeskIcons.MailboxDoodle,
@@ -303,7 +303,7 @@ function App() {
   const [T, setTweak] = useTweaks(TWEAK_DEFAULTS);
 
   const open = (id) => {
-    setOpenOrder(o => [...o.filter(x => x !== id), id]);
+    setOpenOrder([id]);
   };
   const close = (id) => {
     setOpenOrder(o => o.filter(x => x !== id));

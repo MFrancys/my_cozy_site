@@ -55,7 +55,7 @@ html, body {
 }
 
 .app {
-  background: var(--paper) url("uploads/Francys Home.png") center center / cover no-repeat;
+  background: var(--paper) url("uploads/Francys Home.png") center center / contain no-repeat;
 }
 
 /* Subtle paper grain via SVG noise */
@@ -138,8 +138,14 @@ html, body {
 
 /* ================== DESK OBJECTS ================== */
 .desk-layer {
-  position: absolute; inset: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(100vw, calc(100vh * 1.7787));
+  height: min(100vh, calc(100vw * 0.5622));
+  transform: translate(-50%, -50%);
   z-index: 4;
+  overflow: visible;
 }
 
 .desk-object {
@@ -155,6 +161,71 @@ html, body {
   transform-origin: center;
   transition: filter 240ms ease;
   font-family: inherit;
+  isolation: isolate;
+}
+
+.desk-object::before {
+  content: "";
+  position: absolute;
+  inset: -10px -14px;
+  border: 1.6px dashed rgba(26, 26, 26, 0.28);
+  border-radius: 48% 52% 46% 54% / 55% 45% 52% 48%;
+  background: rgba(251, 246, 236, 0.16);
+  opacity: 0;
+  transform: rotate(-2deg) scale(0.98);
+  transition: opacity 180ms ease, transform 180ms ease, background 180ms ease, border-color 180ms ease;
+  z-index: -1;
+}
+
+.desk-object::after {
+  content: "open";
+  position: absolute;
+  left: 50%;
+  bottom: -22px;
+  transform: translateX(-50%) rotate(-3deg) translateY(4px);
+  font-family: var(--font-hand);
+  font-size: 15px;
+  color: var(--ink);
+  background: rgba(251, 246, 236, 0.78);
+  border-bottom: 3px solid var(--label-line, #d99b25);
+  padding: 0 8px 3px;
+  opacity: 0;
+  transition: opacity 160ms ease, transform 160ms ease;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.desk-object:hover::before,
+.desk-object:focus-visible::before {
+  opacity: 1;
+  transform: rotate(1deg) scale(1.08);
+  background: rgba(251, 246, 236, 0.34);
+  border-color: rgba(26, 26, 26, 0.46);
+}
+
+.desk-object:hover::after,
+.desk-object:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) rotate(-3deg) translateY(0);
+}
+
+.desk-object:focus-visible {
+  outline: 0;
+}
+
+.desk-object-now::before {
+  inset: 2px 8px 20px 8px;
+  border-radius: 44% 56% 47% 53% / 52% 46% 54% 48%;
+}
+
+.desk-object-writing::before {
+  inset: 0 8px 20px 8px;
+  border-radius: 46% 54% 45% 55% / 54% 48% 52% 46%;
+}
+
+.desk-object-now::after,
+.desk-object-writing::after {
+  bottom: -16px;
 }
 
 .desk-object-art {
@@ -1983,8 +2054,8 @@ const DESK_OBJECTS = [{
   label: "now",
   Icon: DeskIcons.CalendarDoodle,
   pos: {
-    right: "17%",
-    top: "27%"
+    left: "81%",
+    top: "28%"
   },
   sway: 4.7,
   w: 120
@@ -1993,8 +2064,8 @@ const DESK_OBJECTS = [{
   label: "notes",
   Icon: DeskIcons.PapersDoodle,
   pos: {
-    right: "20%",
-    top: "60%"
+    left: "76%",
+    top: "61%"
   },
   sway: 4.0,
   w: 128
@@ -2429,7 +2500,7 @@ function App() {
   useAmbientSound(soundOn);
   const [T, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const open = id => {
-    setOpenOrder(o => [...o.filter(x => x !== id), id]);
+    setOpenOrder([id]);
   };
   const close = id => {
     setOpenOrder(o => o.filter(x => x !== id));
