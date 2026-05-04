@@ -896,6 +896,12 @@ html, body {
   .desk-footer-note { transform: scale(0.72); transform-origin: right bottom; right: 3%; bottom: 3%; }
 }
 
+
+/* Generated about doodle replacement */
+.about-image-replacement { position: absolute; left: 18%; top: 25.2%; width: 188px; height: 188px; transform: translate(-50%, -50%) rotate(-1.5deg); pointer-events: none; z-index: 5; }
+.about-image-replacement::before { content: ""; position: absolute; left: -18px; right: -18px; top: -18px; bottom: -22px; background: radial-gradient(ellipse at 50% 45%, rgba(247,237,218,.99) 0 62%, rgba(247,237,218,.86) 78%, transparent 100%); filter: blur(1.2px); border-radius: 42% 51% 43% 48% / 48% 42% 54% 47%; }
+.about-generated-image { position: absolute; left: 50%; top: 50%; width: 154px; height: auto; transform: translate(-50%, -50%); object-fit: contain; z-index: 1; filter: contrast(1.08) saturate(1.06) drop-shadow(5px 7px 0 rgba(70,45,15,.06)); }
+
 </style>
 <template id="__bundler_thumbnail">
   <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1971,8 +1977,7 @@ const ContactContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
   className: "cc-aside"
 }, "usually within a day")), /*#__PURE__*/React.createElement("a", {
   className: "contact-card",
-  href: "#",
-  onClick: e => e.preventDefault()
+  href: "mailto:mariafrancysucv@gmail.com?subject=30-minute%20intro%20call&body=Hi%20Francys%2C%0A%0AI%27d%20like%20to%20schedule%20a%2030-minute%20intro%20call.%0A%0AHere%20are%20a%20few%20times%20that%20work%20for%20me%3A%0A-"
 }, /*#__PURE__*/React.createElement("div", {
   className: "cc-label"
 }, "book a call"), /*#__PURE__*/React.createElement("div", {
@@ -1981,25 +1986,26 @@ const ContactContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
   className: "cc-aside"
 }, "no pitch, just a chat")), /*#__PURE__*/React.createElement("a", {
   className: "contact-card",
-  href: "#",
-  onClick: e => e.preventDefault()
+  href: "https://www.linkedin.com/in/francys-lanza-garc%C3%ADa-784865128/",
+  target: "_blank",
+  rel: "noopener noreferrer"
 }, /*#__PURE__*/React.createElement("div", {
   className: "cc-label"
 }, "linkedin"), /*#__PURE__*/React.createElement("div", {
   className: "cc-value"
-}, "/in/francys-lanza"), /*#__PURE__*/React.createElement("div", {
+}, "/in/francys-lanza-garcía"), /*#__PURE__*/React.createElement("div", {
   className: "cc-aside"
 }, "DMs open")), /*#__PURE__*/React.createElement("a", {
   className: "contact-card",
-  href: "#",
-  onClick: e => e.preventDefault()
+  href: "uploads/Francys_Lanza_Garcia_CV_2026.docx",
+  download: true
 }, /*#__PURE__*/React.createElement("div", {
   className: "cc-label"
 }, "cv"), /*#__PURE__*/React.createElement("div", {
   className: "cc-value"
-}, "download pdf \u2192"), /*#__PURE__*/React.createElement("div", {
+}, "download cv \u2192"), /*#__PURE__*/React.createElement("div", {
   className: "cc-aside"
-}, "2026 edition"))), /*#__PURE__*/React.createElement("p", {
+}, "2026 edition · docx"))), /*#__PURE__*/React.createElement("p", {
   className: "aside"
 }, "Based in Mexico, working remotely. Comfortable across LATAM, US, and EU hours."));
 window.WindowContent = {
@@ -2399,6 +2405,17 @@ function StatusBar({
   }, soundOn ? "♪ sound on" : "♪ sound off"));
 }
 
+function AboutPolaroid() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "about-image-replacement",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("img", {
+    className: "about-generated-image",
+    src: "uploads/about-girl-reading-bold.png",
+    alt: "Girl reading an open book"
+  }));
+}
+
 function DeskFooterNote() {
   return /*#__PURE__*/React.createElement("div", {
     className: "desk-footer-note",
@@ -2546,7 +2563,7 @@ function App() {
     className: "hero-sub"
   }, "click anything \xB7 drag the windows \xB7 stay a while")), /*#__PURE__*/React.createElement(PetCorner, null), /*#__PURE__*/React.createElement("div", {
     className: "desk-layer"
-  }, filteredObjects.map(obj => /*#__PURE__*/React.createElement(DeskObject, {
+  }, /*#__PURE__*/React.createElement(AboutPolaroid, null), filteredObjects.map(obj => /*#__PURE__*/React.createElement(DeskObject, {
     key: obj.id,
     obj: obj,
     onOpen: open,

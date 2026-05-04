@@ -220,20 +220,20 @@ const ContactContent = () => (
         <div className="cc-value">mariafrancysucv@gmail.com</div>
         <div className="cc-aside">usually within a day</div>
       </a>
-      <a className="contact-card" href="#" onClick={(e) => e.preventDefault()}>
+      <a className="contact-card" href="mailto:mariafrancysucv@gmail.com?subject=30-minute%20intro%20call&body=Hi%20Francys%2C%0A%0AI%27d%20like%20to%20schedule%20a%2030-minute%20intro%20call.%0A%0AHere%20are%20a%20few%20times%20that%20work%20for%20me%3A%0A-">
         <div className="cc-label">book a call</div>
         <div className="cc-value">30-min intro →</div>
         <div className="cc-aside">no pitch, just a chat</div>
       </a>
-      <a className="contact-card" href="#" onClick={(e) => e.preventDefault()}>
+      <a className="contact-card" href="https://www.linkedin.com/in/francys-lanza-garc%C3%ADa-784865128/" target="_blank" rel="noopener noreferrer">
         <div className="cc-label">linkedin</div>
-        <div className="cc-value">/in/francys-lanza</div>
+        <div className="cc-value">/in/francys-lanza-garcía</div>
         <div className="cc-aside">DMs open</div>
       </a>
-      <a className="contact-card" href="#" onClick={(e) => e.preventDefault()}>
+      <a className="contact-card" href="uploads/Francys_Lanza_Garcia_CV_2026.docx" download>
         <div className="cc-label">cv</div>
-        <div className="cc-value">download pdf →</div>
-        <div className="cc-aside">2026 edition</div>
+        <div className="cc-value">download cv →</div>
+        <div className="cc-aside">2026 edition · docx</div>
       </a>
     </div>
     <p className="aside">

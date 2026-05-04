@@ -384,6 +384,17 @@ function StatusBar({
   }, soundOn ? "♪ sound on" : "♪ sound off"));
 }
 
+function AboutPolaroid() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "about-image-replacement",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("img", {
+    className: "about-generated-image",
+    src: "uploads/about-girl-reading-bold.png",
+    alt: "Girl reading an open book"
+  }));
+}
+
 function DeskFooterNote() {
   return /*#__PURE__*/React.createElement("div", {
     className: "desk-footer-note",
@@ -531,7 +542,7 @@ function App() {
     className: "hero-sub"
   }, "click anything \xB7 drag the windows \xB7 stay a while")), /*#__PURE__*/React.createElement(PetCorner, null), /*#__PURE__*/React.createElement("div", {
     className: "desk-layer"
-  }, filteredObjects.map(obj => /*#__PURE__*/React.createElement(DeskObject, {
+  }, /*#__PURE__*/React.createElement(AboutPolaroid, null), filteredObjects.map(obj => /*#__PURE__*/React.createElement(DeskObject, {
     key: obj.id,
     obj: obj,
     onOpen: open,

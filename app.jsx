@@ -215,6 +215,18 @@ function StatusBar({ soundOn, onToggleSound }) {
   );
 }
 
+function AboutPolaroid() {
+  return (
+    <div className="about-image-replacement" aria-hidden="true">
+      <img
+        className="about-generated-image"
+        src="uploads/about-girl-reading-bold.png"
+        alt="Girl reading an open book"
+      />
+    </div>
+  );
+}
+
 function DeskFooterNote() {
   return (
     <div className="desk-footer-note" aria-hidden="true">
@@ -362,6 +374,7 @@ function App() {
 
       {/* Desk objects */}
       <div className="desk-layer">
+        <AboutPolaroid />
         {filteredObjects.map(obj => (
           <DeskObject
             key={obj.id}

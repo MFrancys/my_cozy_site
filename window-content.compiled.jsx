@@ -177,8 +177,7 @@ const ContactContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
   className: "cc-aside"
 }, "usually within a day")), /*#__PURE__*/React.createElement("a", {
   className: "contact-card",
-  href: "#",
-  onClick: e => e.preventDefault()
+  href: "mailto:mariafrancysucv@gmail.com?subject=30-minute%20intro%20call&body=Hi%20Francys%2C%0A%0AI%27d%20like%20to%20schedule%20a%2030-minute%20intro%20call.%0A%0AHere%20are%20a%20few%20times%20that%20work%20for%20me%3A%0A-"
 }, /*#__PURE__*/React.createElement("div", {
   className: "cc-label"
 }, "book a call"), /*#__PURE__*/React.createElement("div", {
@@ -187,25 +186,26 @@ const ContactContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
   className: "cc-aside"
 }, "no pitch, just a chat")), /*#__PURE__*/React.createElement("a", {
   className: "contact-card",
-  href: "#",
-  onClick: e => e.preventDefault()
+  href: "https://www.linkedin.com/in/francys-lanza-garc%C3%ADa-784865128/",
+  target: "_blank",
+  rel: "noopener noreferrer"
 }, /*#__PURE__*/React.createElement("div", {
   className: "cc-label"
 }, "linkedin"), /*#__PURE__*/React.createElement("div", {
   className: "cc-value"
-}, "/in/francys-lanza"), /*#__PURE__*/React.createElement("div", {
+}, "/in/francys-lanza-garcía"), /*#__PURE__*/React.createElement("div", {
   className: "cc-aside"
 }, "DMs open")), /*#__PURE__*/React.createElement("a", {
   className: "contact-card",
-  href: "#",
-  onClick: e => e.preventDefault()
+  href: "uploads/Francys_Lanza_Garcia_CV_2026.docx",
+  download: true
 }, /*#__PURE__*/React.createElement("div", {
   className: "cc-label"
 }, "cv"), /*#__PURE__*/React.createElement("div", {
   className: "cc-value"
-}, "download pdf \u2192"), /*#__PURE__*/React.createElement("div", {
+}, "download cv \u2192"), /*#__PURE__*/React.createElement("div", {
   className: "cc-aside"
-}, "2026 edition"))), /*#__PURE__*/React.createElement("p", {
+}, "2026 edition · docx"))), /*#__PURE__*/React.createElement("p", {
   className: "aside"
 }, "Based in Mexico, working remotely. Comfortable across LATAM, US, and EU hours."));
 window.WindowContent = {
