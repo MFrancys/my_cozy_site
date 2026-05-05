@@ -392,7 +392,13 @@ function AboutPolaroid() {
     className: "about-generated-image",
     src: "uploads/about-girl-reading-bold.png",
     alt: "Girl reading an open book"
-  }));
+  }), /*#__PURE__*/React.createElement("svg", {
+    className: "about-cloud-doodle",
+    viewBox: "0 0 72 42",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M 14 28 C 8 28 6 21 12 18 C 14 10 25 9 29 15 C 34 5 50 8 52 19 C 61 18 66 25 61 31 C 58 34 51 34 45 34 L 18 34"
+  })));
 }
 
 function DeskFooterNote() {
