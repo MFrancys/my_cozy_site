@@ -16,33 +16,41 @@ const ContentBlock = ({
 
 // --- About ---
 const AboutContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
-  kicker: "01 \u2014 about",
+  kicker: "02 \u2014 about",
   title: "Hi, I'm Francys."
 }, /*#__PURE__*/React.createElement("p", {
   className: "lede"
-}, "I'm a Lead Data Scientist & ML Engineer based in Mexico, with", " ", /*#__PURE__*/React.createElement("em", null, "six years"), " of building production machine learning in fintech."), /*#__PURE__*/React.createElement("p", null, "I help teams move from notebooks and fragmented pipelines to deployable, monitored, governed ML systems \u2014 the kind that survive a Tuesday morning incident and a Friday afternoon audit."), /*#__PURE__*/React.createElement("p", null, "Mostly I work in Databricks. Mostly the problems are credit risk, fraud, and the quiet infrastructure that lets models actually ship."), /*#__PURE__*/React.createElement("p", {
+}, "I'm a Data Scientist & ML Engineer based in Mexico, with", " ", /*#__PURE__*/React.createElement("em", null, "six years"), " of building production machine learning in fintech."), /*#__PURE__*/React.createElement("p", null, "I help teams move from notebooks and fragmented pipelines to deployable, monitored, governed ML systems \u2014 the kind that survive a Tuesday morning incident and a Friday afternoon audit."), /*#__PURE__*/React.createElement("p", null, "Mostly I work in Databricks. Mostly the problems are credit risk, fraud, and the quiet infrastructure that lets models actually ship."), /*#__PURE__*/React.createElement("p", {
   className: "aside"
 }, "Off the clock \u2014 I mentor, I speak about practical AI adoption, and I'm finishing my MSc in AI at Woolf University."));
 
 // --- Services ---
 const ServicesContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
-  kicker: "02 \u2014 services",
+  kicker: "01 — SERVICES",
   title: "What I help with."
 }, /*#__PURE__*/React.createElement("p", {
   className: "lede"
-}, "Fractional ML & MLOps consulting \u2014 hourly or project-based."), /*#__PURE__*/React.createElement("ul", {
-  className: "service-list"
+}, "Fractional ML & MLOps consulting — hourly or project-based."), /*#__PURE__*/React.createElement("ul", {
+  className: "service-list service-list-detailed"
+}, /*#__PURE__*/React.createElement("li", {
+  className: "service-group"
+}, /*#__PURE__*/React.createElement("span", {
+  className: "num"
+}, "i."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Data Science & Machine Learning Consulting"), /*#__PURE__*/React.createElement("ol", {
+  className: "service-sublist"
 }, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "sub-num"
+}, "a."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Design, build & deploy production ML systems"), /*#__PURE__*/React.createElement("p", null, "ML platform setup, model lifecycle, deployment standards. Delivery cycles cut from months to weeks."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "sub-num"
+}, "b."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Feature store design"), /*#__PURE__*/React.createElement("p", null, "Offline + online stores, governed feature reuse across financial products."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "sub-num"
+}, "c."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Credit risk & fraud modeling"), /*#__PURE__*/React.createElement("p", null, "Underwriting engines, real-time decisioning, graph-based fraud detection."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "sub-num"
+}, "d."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Monitoring & drift detection"), /*#__PURE__*/React.createElement("p", null, "Detection frameworks, automated retraining, model governance.")))))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
   className: "num"
-}, "i."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Production ML on Databricks"), /*#__PURE__*/React.createElement("p", null, "MLflow setup, model lifecycle, deployment standards."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+}, "ii."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Technical Mentorship for Data Scientists"), /*#__PURE__*/React.createElement("p", null, "Structured 1:1 program to land your first role or reach the next level."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
   className: "num"
-}, "ii."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Feature store design"), /*#__PURE__*/React.createElement("p", null, "Offline + online stores, governed reuse across products."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "num"
-}, "iii."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Credit risk & fraud modeling"), /*#__PURE__*/React.createElement("p", null, "Underwriting engines, real-time decisioning, graph-based fraud."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "num"
-}, "iv."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Monitoring & drift"), /*#__PURE__*/React.createElement("p", null, "Detection frameworks, automated retraining, model governance."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "num"
-}, "v."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Fractional ML leadership"), /*#__PURE__*/React.createElement("p", null, "For teams scaling from notebooks to production.")))), /*#__PURE__*/React.createElement("p", {
+}, "iii."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Productivity & Automation with AI Tools"), /*#__PURE__*/React.createElement("p", null, "For professionals and teams ready to work smarter with Claude, Gemini, and modern AI workflows.")))), /*#__PURE__*/React.createElement("p", {
   className: "aside"
 }, "Best fit: project-based engagements where a team needs senior execution, architecture, and production hardening."));
 

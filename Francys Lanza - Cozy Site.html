@@ -632,6 +632,31 @@ html, body {
 }
 .service-list p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
 
+.service-list-detailed > li { padding: 11px 0; }
+.service-list-detailed .service-group { padding-bottom: 8px; }
+.service-sublist {
+  list-style: none;
+  padding: 7px 0 0;
+  margin: 0;
+}
+.service-sublist li {
+  display: flex;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px dashed rgba(26, 26, 26, 0.09);
+}
+.service-sublist li:last-child { border-bottom: 0; }
+.service-sublist .sub-num {
+  font-family: var(--font-mono);
+  color: var(--ink-fade);
+  font-size: 10.5px;
+  width: 16px;
+  flex-shrink: 0;
+  padding-top: 3px;
+}
+.service-sublist strong { font-size: 14.5px; }
+.service-sublist p { font-size: 13px; line-height: 1.45; }
+
 /* Cases */
 .case {
   padding: 12px 0;
@@ -902,8 +927,79 @@ html, body {
 }
 
 
+
+/* Covers the baked-in old about doodle and redraws now in that spot */
+.now-image-replacement {
+  position: absolute;
+  left: 18%;
+  top: 25%;
+  width: 150px;
+  height: 150px;
+  transform: translate(-50%, -50%) rotate(-1.5deg);
+  pointer-events: none;
+  z-index: 1;
+}
+.now-image-replacement::before {
+  content: "";
+  position: absolute;
+  left: -34px;
+  right: -34px;
+  top: -32px;
+  bottom: -28px;
+  background: radial-gradient(ellipse at 50% 48%, rgba(247,237,218,.99) 0 64%, rgba(247,237,218,.9) 82%, transparent 100%);
+  filter: blur(1.8px);
+  border-radius: 48% 52% 46% 54% / 55% 45% 52% 48%;
+  z-index: 0;
+}
+.now-replacement-art {
+  position: absolute;
+  left: 50%;
+  top: 36%;
+  width: 104px;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  filter: contrast(1.06) drop-shadow(7px 9px 0 rgba(70,45,15,.09));
+}
+.now-replacement-art svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.now-replacement-art svg path,
+.now-replacement-art svg circle,
+.now-replacement-art svg ellipse {
+  stroke-width: 2.35 !important;
+}
+.now-replacement-art svg circle[fill="#1a1a1a"] {
+  r: 1.15px;
+}
+.now-replacement-label {
+  position: absolute;
+  left: 50%;
+  top: 75%;
+  transform: translate(-50%, -50%) rotate(-2deg);
+  z-index: 3;
+  font-family: var(--font-hand);
+  font-size: 31px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink);
+  padding: 0 13px 9px;
+}
+.now-replacement-label::after {
+  content: "";
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  bottom: 0;
+  height: 4px;
+  border-radius: 999px;
+  background: #6f815b;
+  transform: rotate(-1.5deg);
+}
+
 /* Generated about doodle replacement */
-.about-image-replacement { position: absolute; left: 18%; top: 25.2%; width: 188px; height: 188px; transform: translate(-50%, -50%) rotate(-1.5deg); pointer-events: none; z-index: 1; }
+.about-image-replacement { position: absolute; left: 81%; top: 28.2%; width: 188px; height: 188px; transform: translate(-50%, -50%) rotate(-1.5deg); pointer-events: none; z-index: 1; }
 .about-image-replacement::before {
   content: "";
   position: absolute;
@@ -936,6 +1032,19 @@ html, body {
   pointer-events: none !important;
 }
 
+.now-replacement-label::before {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 3px;
+  width: 13px;
+  height: 18px;
+  background:
+    linear-gradient(var(--ink), var(--ink)) 2px 2px / 10px 1.5px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) 0 9px / 11px 1.5px no-repeat;
+  transform: rotate(24deg);
+  opacity: .88;
+}
 
 </style>
 <template id="__bundler_thumbnail">
@@ -947,12 +1056,6 @@ html, body {
 </head>
 <body>
 <div id="root"></div>
-<script>
-window.addEventListener('unhandledrejection', (e) => {
-  const m = e.reason && (e.reason.message || String(e.reason));
-  if (m && /Can't find variable: output|output is not defined/.test(m)) e.preventDefault();
-});
-</script>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script>
@@ -1480,8 +1583,6 @@ Object.assign(window, {
   TweakButton
 });
 
-;
-
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 // Hand-drawn SVG objects. Single-stroke ink aesthetic.
 // All drawn with rough, slightly imperfect lines — not vector-perfect.
@@ -1831,8 +1932,6 @@ window.Objects = {
   TinyMug
 };
 
-;
-
 // Floating window content for each "object"
 
 const ContentBlock = ({
@@ -1851,33 +1950,41 @@ const ContentBlock = ({
 
 // --- About ---
 const AboutContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
-  kicker: "01 \u2014 about",
+  kicker: "02 \u2014 about",
   title: "Hi, I'm Francys."
 }, /*#__PURE__*/React.createElement("p", {
   className: "lede"
-}, "I'm a Lead Data Scientist & ML Engineer based in Mexico, with", " ", /*#__PURE__*/React.createElement("em", null, "six years"), " of building production machine learning in fintech."), /*#__PURE__*/React.createElement("p", null, "I help teams move from notebooks and fragmented pipelines to deployable, monitored, governed ML systems \u2014 the kind that survive a Tuesday morning incident and a Friday afternoon audit."), /*#__PURE__*/React.createElement("p", null, "Mostly I work in Databricks. Mostly the problems are credit risk, fraud, and the quiet infrastructure that lets models actually ship."), /*#__PURE__*/React.createElement("p", {
+}, "I'm a Data Scientist & ML Engineer based in Mexico, with", " ", /*#__PURE__*/React.createElement("em", null, "six years"), " of building production machine learning in fintech."), /*#__PURE__*/React.createElement("p", null, "I help teams move from notebooks and fragmented pipelines to deployable, monitored, governed ML systems \u2014 the kind that survive a Tuesday morning incident and a Friday afternoon audit."), /*#__PURE__*/React.createElement("p", null, "Mostly I work in Databricks. Mostly the problems are credit risk, fraud, and the quiet infrastructure that lets models actually ship."), /*#__PURE__*/React.createElement("p", {
   className: "aside"
 }, "Off the clock \u2014 I mentor, I speak about practical AI adoption, and I'm finishing my MSc in AI at Woolf University."));
 
 // --- Services ---
 const ServicesContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
-  kicker: "02 \u2014 services",
+  kicker: "01 — SERVICES",
   title: "What I help with."
 }, /*#__PURE__*/React.createElement("p", {
   className: "lede"
-}, "Fractional ML & MLOps consulting \u2014 hourly or project-based."), /*#__PURE__*/React.createElement("ul", {
-  className: "service-list"
+}, "Fractional ML & MLOps consulting — hourly or project-based."), /*#__PURE__*/React.createElement("ul", {
+  className: "service-list service-list-detailed"
+}, /*#__PURE__*/React.createElement("li", {
+  className: "service-group"
+}, /*#__PURE__*/React.createElement("span", {
+  className: "num"
+}, "i."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Data Science & Machine Learning Consulting"), /*#__PURE__*/React.createElement("ol", {
+  className: "service-sublist"
 }, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "sub-num"
+}, "a."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Design, build & deploy production ML systems"), /*#__PURE__*/React.createElement("p", null, "ML platform setup, model lifecycle, deployment standards. Delivery cycles cut from months to weeks."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "sub-num"
+}, "b."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Feature store design"), /*#__PURE__*/React.createElement("p", null, "Offline + online stores, governed feature reuse across financial products."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "sub-num"
+}, "c."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Credit risk & fraud modeling"), /*#__PURE__*/React.createElement("p", null, "Underwriting engines, real-time decisioning, graph-based fraud detection."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+  className: "sub-num"
+}, "d."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Monitoring & drift detection"), /*#__PURE__*/React.createElement("p", null, "Detection frameworks, automated retraining, model governance.")))))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
   className: "num"
-}, "i."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Production ML on Databricks"), /*#__PURE__*/React.createElement("p", null, "MLflow setup, model lifecycle, deployment standards."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+}, "ii."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Technical Mentorship for Data Scientists"), /*#__PURE__*/React.createElement("p", null, "Structured 1:1 program to land your first role or reach the next level."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
   className: "num"
-}, "ii."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Feature store design"), /*#__PURE__*/React.createElement("p", null, "Offline + online stores, governed reuse across products."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "num"
-}, "iii."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Credit risk & fraud modeling"), /*#__PURE__*/React.createElement("p", null, "Underwriting engines, real-time decisioning, graph-based fraud."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "num"
-}, "iv."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Monitoring & drift"), /*#__PURE__*/React.createElement("p", null, "Detection frameworks, automated retraining, model governance."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "num"
-}, "v."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Fractional ML leadership"), /*#__PURE__*/React.createElement("p", null, "For teams scaling from notebooks to production.")))), /*#__PURE__*/React.createElement("p", {
+}, "iii."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Productivity & Automation with AI Tools"), /*#__PURE__*/React.createElement("p", null, "For professionals and teams ready to work smarter with Claude, Gemini, and modern AI workflows.")))), /*#__PURE__*/React.createElement("p", {
   className: "aside"
 }, "Best fit: project-based engagements where a team needs senior execution, architecture, and production hardening."));
 
@@ -2052,8 +2159,6 @@ window.WindowContent = {
   contact: ContactContent
 };
 
-;
-
 // Main app — cozy desk, floating windows, ambient interactions.
 
 const DeskIcons = window.Objects;
@@ -2065,8 +2170,8 @@ const DESK_OBJECTS = [{
   label: "about",
   Icon: DeskIcons.SelfPortraitDoodle,
   pos: {
-    left: "18%",
-    top: "25%"
+    left: "81%",
+    top: "28%"
   },
   sway: 4.2,
   w: 128
@@ -2095,8 +2200,8 @@ const DESK_OBJECTS = [{
   label: "now",
   Icon: DeskIcons.CalendarDoodle,
   pos: {
-    left: "81%",
-    top: "28%"
+    left: "18%",
+    top: "25%"
   },
   sway: 4.7,
   w: 120
@@ -2440,6 +2545,17 @@ function StatusBar({
   }, soundOn ? "♪ sound on" : "♪ sound off"));
 }
 
+function NowReplacement() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "now-image-replacement",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "now-replacement-art"
+  }, /*#__PURE__*/React.createElement(DeskIcons.CalendarDoodle, null)), /*#__PURE__*/React.createElement("div", {
+    className: "now-replacement-label"
+  }, "now"));
+}
+
 function AboutPolaroid() {
   return /*#__PURE__*/React.createElement("div", {
     className: "about-image-replacement",
@@ -2448,7 +2564,13 @@ function AboutPolaroid() {
     className: "about-generated-image",
     src: "uploads/about-girl-reading-bold.png",
     alt: "Girl reading an open book"
-  }));
+  }), /*#__PURE__*/React.createElement("svg", {
+    className: "about-cloud-doodle",
+    viewBox: "0 0 72 42",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M 14 28 C 8 28 6 21 12 18 C 14 10 25 9 29 15 C 34 5 50 8 52 19 C 61 18 66 25 61 31 C 58 34 51 34 45 34 L 18 34"
+  })));
 }
 
 function DeskFooterNote() {
@@ -2598,7 +2720,7 @@ function App() {
     className: "hero-sub"
   }, "click anything \xB7 drag the windows \xB7 stay a while")), /*#__PURE__*/React.createElement(PetCorner, null), /*#__PURE__*/React.createElement("div", {
     className: "desk-layer"
-  }, /*#__PURE__*/React.createElement(AboutPolaroid, null), filteredObjects.map(obj => /*#__PURE__*/React.createElement(DeskObject, {
+  }, /*#__PURE__*/React.createElement(NowReplacement, null), /*#__PURE__*/React.createElement(AboutPolaroid, null), filteredObjects.map(obj => /*#__PURE__*/React.createElement(DeskObject, {
     key: obj.id,
     obj: obj,
     onOpen: open,

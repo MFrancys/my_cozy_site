@@ -9,8 +9,8 @@ const DESK_OBJECTS = [{
   label: "about",
   Icon: DeskIcons.SelfPortraitDoodle,
   pos: {
-    left: "18%",
-    top: "25%"
+    left: "81%",
+    top: "28%"
   },
   sway: 4.2,
   w: 128
@@ -39,8 +39,8 @@ const DESK_OBJECTS = [{
   label: "now",
   Icon: DeskIcons.CalendarDoodle,
   pos: {
-    left: "81%",
-    top: "28%"
+    left: "18%",
+    top: "25%"
   },
   sway: 4.7,
   w: 120
@@ -384,6 +384,17 @@ function StatusBar({
   }, soundOn ? "♪ sound on" : "♪ sound off"));
 }
 
+function NowReplacement() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "now-image-replacement",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "now-replacement-art"
+  }, /*#__PURE__*/React.createElement(DeskIcons.CalendarDoodle, null)), /*#__PURE__*/React.createElement("div", {
+    className: "now-replacement-label"
+  }, "now"));
+}
+
 function AboutPolaroid() {
   return /*#__PURE__*/React.createElement("div", {
     className: "about-image-replacement",
@@ -548,7 +559,7 @@ function App() {
     className: "hero-sub"
   }, "click anything \xB7 drag the windows \xB7 stay a while")), /*#__PURE__*/React.createElement(PetCorner, null), /*#__PURE__*/React.createElement("div", {
     className: "desk-layer"
-  }, /*#__PURE__*/React.createElement(AboutPolaroid, null), filteredObjects.map(obj => /*#__PURE__*/React.createElement(DeskObject, {
+  }, /*#__PURE__*/React.createElement(NowReplacement, null), /*#__PURE__*/React.createElement(AboutPolaroid, null), filteredObjects.map(obj => /*#__PURE__*/React.createElement(DeskObject, {
     key: obj.id,
     obj: obj,
     onOpen: open,

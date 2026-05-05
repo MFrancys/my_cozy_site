@@ -7,7 +7,7 @@ const DeskIcons = window.Objects;
 const DESK_OBJECTS = [
   {
     id: "about", label: "about", Icon: DeskIcons.SelfPortraitDoodle,
-    pos: { left: "18%", top: "25%" }, sway: 4.2, w: 128,
+    pos: { left: "81%", top: "28%" }, sway: 4.2, w: 128,
   },
   {
     id: "cases", label: "selected work", Icon: DeskIcons.NotebookDoodle,
@@ -19,7 +19,7 @@ const DESK_OBJECTS = [
   },
   {
     id: "now", label: "now", Icon: DeskIcons.CalendarDoodle,
-    pos: { left: "81%", top: "28%" }, sway: 4.7, w: 120,
+    pos: { left: "18%", top: "25%" }, sway: 4.7, w: 120,
   },
   {
     id: "writing", label: "notes", Icon: DeskIcons.PapersDoodle,
@@ -215,6 +215,15 @@ function StatusBar({ soundOn, onToggleSound }) {
   );
 }
 
+function NowReplacement() {
+  return (
+    <div className="now-image-replacement" aria-hidden="true">
+      <div className="now-replacement-art"><DeskIcons.CalendarDoodle /></div>
+      <div className="now-replacement-label">now</div>
+    </div>
+  );
+}
+
 function AboutPolaroid() {
   return (
     <div className="about-image-replacement" aria-hidden="true">
@@ -377,6 +386,7 @@ function App() {
 
       {/* Desk objects */}
       <div className="desk-layer">
+        <NowReplacement />
         <AboutPolaroid />
         {filteredObjects.map(obj => (
           <DeskObject

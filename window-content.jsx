@@ -10,9 +10,9 @@ const ContentBlock = ({ title, kicker, children }) => (
 
 // --- About ---
 const AboutContent = () => (
-  <ContentBlock kicker="01 — about" title="Hi, I'm Francys.">
+  <ContentBlock kicker="02 — about" title="Hi, I'm Francys.">
     <p className="lede">
-      I'm a Lead Data Scientist & ML Engineer based in Mexico, with{" "}
+      I'm a Data Scientist & ML Engineer based in Mexico, with{" "}
       <em>six years</em> of building production machine learning in fintech.
     </p>
     <p>
@@ -33,44 +33,73 @@ const AboutContent = () => (
 
 // --- Services ---
 const ServicesContent = () => (
-  <ContentBlock kicker="02 — services" title="What I help with.">
+  <ContentBlock kicker="01 — SERVICES" title="What I help with.">
     <p className="lede">
       Fractional ML & MLOps consulting — hourly or project-based.
     </p>
-    <ul className="service-list">
-      <li>
+    <ul className="service-list service-list-detailed">
+      <li className="service-group">
         <span className="num">i.</span>
         <div>
-          <strong>Production ML on Databricks</strong>
-          <p>MLflow setup, model lifecycle, deployment standards.</p>
+          <strong>Data Science & Machine Learning Consulting</strong>
+          <ol className="service-sublist">
+            <li>
+              <span className="sub-num">a.</span>
+              <div>
+                <strong>Design, build & deploy production ML systems</strong>
+                <p>
+                  ML platform setup, model lifecycle, deployment standards.
+                  Delivery cycles cut from months to weeks.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span className="sub-num">b.</span>
+              <div>
+                <strong>Feature store design</strong>
+                <p>
+                  Offline + online stores, governed feature reuse across
+                  financial products.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span className="sub-num">c.</span>
+              <div>
+                <strong>Credit risk & fraud modeling</strong>
+                <p>
+                  Underwriting engines, real-time decisioning, graph-based
+                  fraud detection.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span className="sub-num">d.</span>
+              <div>
+                <strong>Monitoring & drift detection</strong>
+                <p>
+                  Detection frameworks, automated retraining, model governance.
+                </p>
+              </div>
+            </li>
+          </ol>
         </div>
       </li>
       <li>
         <span className="num">ii.</span>
         <div>
-          <strong>Feature store design</strong>
-          <p>Offline + online stores, governed reuse across products.</p>
+          <strong>Technical Mentorship for Data Scientists</strong>
+          <p>Structured 1:1 program to land your first role or reach the next level.</p>
         </div>
       </li>
       <li>
         <span className="num">iii.</span>
         <div>
-          <strong>Credit risk & fraud modeling</strong>
-          <p>Underwriting engines, real-time decisioning, graph-based fraud.</p>
-        </div>
-      </li>
-      <li>
-        <span className="num">iv.</span>
-        <div>
-          <strong>Monitoring & drift</strong>
-          <p>Detection frameworks, automated retraining, model governance.</p>
-        </div>
-      </li>
-      <li>
-        <span className="num">v.</span>
-        <div>
-          <strong>Fractional ML leadership</strong>
-          <p>For teams scaling from notebooks to production.</p>
+          <strong>Productivity & Automation with AI Tools</strong>
+          <p>
+            For professionals and teams ready to work smarter with Claude,
+            Gemini, and modern AI workflows.
+          </p>
         </div>
       </li>
     </ul>
