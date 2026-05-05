@@ -948,23 +948,46 @@ html, body {
   position: absolute;
   left: 50%;
   top: 36%;
-  width: 104px;
+  width: 106px;
   transform: translate(-50%, -50%);
   z-index: 2;
   filter: contrast(1.06) drop-shadow(7px 9px 0 rgba(70,45,15,.09));
 }
-.now-replacement-art svg {
+.now-calendar-svg {
   width: 100%;
   height: auto;
   display: block;
+  overflow: visible;
 }
-.now-replacement-art svg path,
-.now-replacement-art svg circle,
-.now-replacement-art svg ellipse {
-  stroke-width: 2.35 !important;
+.now-calendar-svg path,
+.now-calendar-svg circle {
+  stroke: var(--ink);
+  stroke-width: 2.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
 }
-.now-replacement-art svg circle[fill="#1a1a1a"] {
-  r: 1.15px;
+.now-calendar-svg circle {
+  fill: var(--ink);
+  stroke: none;
+}
+.now-calendar-shadow {
+  stroke-width: 1.2 !important;
+  opacity: .24;
+  stroke-dasharray: 2 3;
+}
+.now-calendar-heart {
+  fill: #e86f36 !important;
+  stroke: var(--ink) !important;
+  stroke-width: 1.6 !important;
+}
+.now-calendar-bottom {
+  stroke-width: 1.5 !important;
+  opacity: .65;
+}
+.now-calendar-spark {
+  stroke: var(--ink) !important;
+  stroke-width: 1.8 !important;
 }
 .now-replacement-label {
   position: absolute;
@@ -973,17 +996,18 @@ html, body {
   transform: translate(-50%, -50%) rotate(-2deg);
   z-index: 3;
   font-family: var(--font-hand);
-  font-size: 31px;
-  font-weight: 600;
+  font-size: 28px;
+  font-weight: 500;
   line-height: 1;
   color: var(--ink);
-  padding: 0 13px 9px;
+  letter-spacing: 0.005em;
+  padding: 0 10px 8px;
 }
 .now-replacement-label::after {
   content: "";
   position: absolute;
-  left: 9px;
-  right: 9px;
+  left: 5px;
+  right: 5px;
   bottom: 0;
   height: 4px;
   border-radius: 999px;

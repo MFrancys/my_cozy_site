@@ -216,13 +216,32 @@ function StatusBar({ soundOn, onToggleSound }) {
 }
 
 function NowReplacement() {
+  const dots = Array.from({ length: 28 }, (_, i) => ({
+    x: 27 + (i % 7) * 7.4,
+    y: 39 + Math.floor(i / 7) * 9.2,
+  }));
   return (
     <div className="now-image-replacement" aria-hidden="true">
-      <div className="now-replacement-art"><DeskIcons.CalendarDoodle /></div>
+      <div className="now-replacement-art">
+        <svg className="now-calendar-svg" viewBox="0 0 100 104">
+          <path className="now-calendar-shadow" d="M 24 91 Q 50 98 78 91" />
+          <path className="now-calendar-page" d="M 19 21 Q 19 17 23 17 L 78 17 Q 82 17 82 21 L 82 78 Q 82 83 77 83 L 24 83 Q 19 83 19 78 Z" />
+          <path d="M 30 12 Q 34 12 34 17 L 34 25" />
+          <path d="M 67 12 Q 71 12 71 17 L 71 25" />
+          <path d="M 19 31 L 82 31" />
+          {dots.map((d, i) => <circle key={i} cx={d.x} cy={d.y} r="1.05" />)}
+          <path className="now-calendar-heart" d="M 50 61 C 45 56 39 61 43 67 C 45 70 50 73 50 73 C 50 73 56 70 58 66 C 61 60 54 56 50 61 Z" />
+          <path className="now-calendar-bottom" d="M 31 75 Q 50 77 70 74" />
+          <path className="now-calendar-spark" d="M 88 20 L 94 14" />
+          <path className="now-calendar-spark" d="M 91 28 L 98 27" />
+          <path className="now-calendar-spark" d="M 85 12 L 86 6" />
+        </svg>
+      </div>
       <div className="now-replacement-label">now</div>
     </div>
   );
 }
+
 
 function AboutPolaroid() {
   return (
