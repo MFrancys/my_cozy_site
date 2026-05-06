@@ -233,7 +233,10 @@ function DeskObject({
     className: "desk-object-label"
   }, /*#__PURE__*/React.createElement("span", null, obj.label), hover && /*#__PURE__*/React.createElement("span", {
     className: "desk-object-arrow"
-  }, "\u2197")));
+  }, "\u2197")), isOpen && /*#__PURE__*/React.createElement("span", {
+    className: "desk-object-selected",
+    "aria-hidden": "true"
+  }));
 }
 
 // ===== Floating window =====

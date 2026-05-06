@@ -95,6 +95,7 @@ function DeskObject({ obj, onOpen, isOpen }) {
         <span>{obj.label}</span>
         {hover && <span className="desk-object-arrow">↗</span>}
       </div>
+      {isOpen && <span className="desk-object-selected" aria-hidden="true" />}
     </button>
   );
 }

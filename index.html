@@ -301,6 +301,47 @@ html, body {
   color: var(--ink-fade);
 }
 
+.desk-object-selected {
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  width: 44px;
+  height: 15px;
+  transform: translateX(-50%) rotate(-4deg);
+  pointer-events: none;
+  z-index: 4;
+}
+.desk-object-selected::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  bottom: 2px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--label-line, #d99b25);
+  opacity: .86;
+}
+.desk-object-selected::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -1px;
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  background: #e86f36;
+  transform: translateX(-50%) rotate(8deg);
+  box-shadow: 0 0 0 2px rgba(251, 246, 236, .45);
+}
+.desk-object.is-open::before {
+  opacity: .72;
+  transform: rotate(1deg) scale(1.05);
+  border-color: rgba(26, 26, 26, .38);
+  background: rgba(251, 246, 236, .2);
+}
+
 /* doodle style filter — pencil softens, marker thickens via filter */
 .app.doodle-pencil .desk-object svg path,
 .app.doodle-pencil .desk-object svg circle,
@@ -1037,8 +1078,8 @@ html, body {
   position: absolute;
   left: 18%;
   top: 25%;
-  width: 150px;
-  height: 150px;
+  width: 184px;
+  height: 192px;
   transform: translate(-50%, -50%) rotate(-1.5deg);
   pointer-events: none;
   z-index: 1;
@@ -1046,11 +1087,11 @@ html, body {
 .now-image-replacement::before {
   content: "";
   position: absolute;
-  left: -34px;
-  right: -34px;
-  top: -32px;
-  bottom: -28px;
-  background: radial-gradient(ellipse at 50% 48%, rgba(247,237,218,.99) 0 64%, rgba(247,237,218,.9) 82%, transparent 100%);
+  left: -50px;
+  right: -50px;
+  top: -36px;
+  bottom: -76px;
+  background: radial-gradient(ellipse at 50% 48%, rgba(247,237,218,.995) 0 68%, rgba(247,237,218,.94) 84%, transparent 100%);
   filter: blur(1.8px);
   border-radius: 48% 52% 46% 54% / 55% 45% 52% 48%;
   z-index: 0;
@@ -1058,8 +1099,8 @@ html, body {
 .now-replacement-art {
   position: absolute;
   left: 50%;
-  top: 36%;
-  width: 106px;
+  top: 33%;
+  width: 138px;
   transform: translate(-50%, -50%);
   z-index: 2;
   filter: contrast(1.06) drop-shadow(7px 9px 0 rgba(70,45,15,.09));
@@ -1103,7 +1144,7 @@ html, body {
 .now-replacement-label {
   position: absolute;
   left: 50%;
-  top: 75%;
+  top: 72%;
   transform: translate(-50%, -50%) rotate(-2deg);
   z-index: 3;
   font-family: var(--font-hand);
@@ -2421,7 +2462,10 @@ function DeskObject({
     className: "desk-object-label"
   }, /*#__PURE__*/React.createElement("span", null, obj.label), hover && /*#__PURE__*/React.createElement("span", {
     className: "desk-object-arrow"
-  }, "\u2197")));
+  }, "\u2197")), isOpen && /*#__PURE__*/React.createElement("span", {
+    className: "desk-object-selected",
+    "aria-hidden": "true"
+  }));
 }
 
 // ===== Floating window =====
