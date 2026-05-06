@@ -1,226 +1,122 @@
 // Floating window content for each "object"
 
-const ContentBlock = ({
-  title,
-  kicker,
-  children
-}) => /*#__PURE__*/React.createElement("div", {
-  className: "window-content"
-}, kicker && /*#__PURE__*/React.createElement("div", {
-  className: "window-kicker"
-}, kicker), /*#__PURE__*/React.createElement("h2", {
-  className: "window-title"
-}, title), /*#__PURE__*/React.createElement("div", {
-  className: "window-body"
-}, children));
+const h = React.createElement;
+
+const ContentBlock = ({ title, kicker, children }) => h("div", { className: "window-content" },
+  kicker && h("div", { className: "window-kicker" }, kicker),
+  h("h2", { className: "window-title" }, title),
+  h("div", { className: "window-body" }, children)
+);
 
 // --- About ---
-const AboutContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
-  kicker: "02 \u2014 about",
-  title: "Hi, I'm Francys."
-}, /*#__PURE__*/React.createElement("p", {
-  className: "lede"
-}, "I'm a Data Scientist & ML Engineer based in Mexico, with", " ", /*#__PURE__*/React.createElement("em", null, "six years"), " of building production machine learning in fintech."), /*#__PURE__*/React.createElement("p", null, "I help teams move from notebooks and fragmented pipelines to deployable, monitored, governed ML systems \u2014 the kind that survive a Tuesday morning incident and a Friday afternoon audit."), /*#__PURE__*/React.createElement("p", null, "Mostly I work in Databricks. Mostly the problems are credit risk, fraud, and the quiet infrastructure that lets models actually ship."), /*#__PURE__*/React.createElement("p", {
-  className: "aside"
-}, "Off the clock \u2014 I mentor, I speak about practical AI adoption, and I'm finishing my MSc in AI at Woolf University."));
+const AboutContent = () => h(ContentBlock, { kicker: "02 — about", title: "Hi, I'm Francys." },
+  h("p", { className: "lede" }, "I'm a Data Scientist & ML Engineer based in Mexico, with ", h("em", null, "six years"), " of building production machine learning in fintech."),
+  h("ul", { className: "scan-list" },
+    h("li", null, h("strong", null, "Production ML:"), " deployable, monitored, governed systems."),
+    h("li", null, h("strong", null, "Fintech focus:"), " credit risk, fraud, and real-time decisioning."),
+    h("li", null, h("strong", null, "Tooling:"), " Databricks, ML platforms, feature stores, model lifecycle.")
+  ),
+  h("p", { className: "aside" }, "Off the clock — I mentor, I speak about practical AI adoption, and I'm finishing my MSc in AI at Woolf University.")
+);
 
 // --- Services ---
-const ServicesContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
-  kicker: "01 — SERVICES",
-  title: "What I help with."
-}, /*#__PURE__*/React.createElement("p", {
-  className: "lede"
-}, "Fractional ML & MLOps consulting — hourly or project-based."), /*#__PURE__*/React.createElement("ul", {
-  className: "service-list service-list-detailed"
-}, /*#__PURE__*/React.createElement("li", {
-  className: "service-group"
-}, /*#__PURE__*/React.createElement("span", {
-  className: "num"
-}, "i."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Data Science & Machine Learning Consulting"), /*#__PURE__*/React.createElement("ol", {
-  className: "service-sublist"
-}, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "sub-num"
-}, "a."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Design, build & deploy production ML systems"), /*#__PURE__*/React.createElement("p", null, "ML platform setup, model lifecycle, deployment standards. Delivery cycles cut from months to weeks."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "sub-num"
-}, "b."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Feature store design"), /*#__PURE__*/React.createElement("p", null, "Offline + online stores, governed feature reuse across financial products."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "sub-num"
-}, "c."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Credit risk & fraud modeling"), /*#__PURE__*/React.createElement("p", null, "Underwriting engines, real-time decisioning, graph-based fraud detection."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "sub-num"
-}, "d."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Monitoring & drift detection"), /*#__PURE__*/React.createElement("p", null, "Detection frameworks, automated retraining, model governance.")))))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "num"
-}, "ii."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Technical Mentorship for Data Scientists"), /*#__PURE__*/React.createElement("p", null, "Structured 1:1 program to land your first role or reach the next level."))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "num"
-}, "iii."), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Productivity & Automation with AI Tools"), /*#__PURE__*/React.createElement("p", null, "For professionals and teams ready to work smarter with Claude, Gemini, and modern AI workflows.")))), /*#__PURE__*/React.createElement("p", {
-  className: "aside"
-}, "Best fit: project-based engagements where a team needs senior execution, architecture, and production hardening."));
+const ServicesContent = () => h(ContentBlock, { kicker: "01 — SERVICES", title: "What I help with." },
+  h("p", { className: "lede" }, "Fractional ML & MLOps consulting — hourly or project-based."),
+  h("ul", { className: "service-list service-list-detailed" },
+    h("li", { className: "service-group" },
+      h("span", { className: "num" }, "i."),
+      h("div", null,
+        h("strong", null, "Data Science & Machine Learning Consulting"),
+        h("ol", { className: "service-sublist" },
+          h("li", null, h("span", { className: "sub-num" }, "a."), h("div", null, h("strong", null, "Design, build & deploy production ML systems"), h("p", null, "Platform setup, lifecycle standards, weeks-not-months delivery."))),
+          h("li", null, h("span", { className: "sub-num" }, "b."), h("div", null, h("strong", null, "Feature store design"), h("p", null, "Offline + online stores, governed reuse across products."))),
+          h("li", null, h("span", { className: "sub-num" }, "c."), h("div", null, h("strong", null, "Credit risk & fraud modeling"), h("p", null, "Underwriting, real-time decisions, graph-based fraud detection."))),
+          h("li", null, h("span", { className: "sub-num" }, "d."), h("div", null, h("strong", null, "Monitoring & drift detection"), h("p", null, "Drift signals, retraining triggers, governance routines.")))
+        )
+      )
+    ),
+    h("li", null, h("span", { className: "num" }, "ii."), h("div", null, h("strong", null, "Technical Mentorship for Data Scientists"), h("p", null, "Structured 1:1 guidance for role transitions and senior growth."))),
+    h("li", null, h("span", { className: "num" }, "iii."), h("div", null, h("strong", null, "Productivity & Automation with AI Tools"), h("p", null, "Claude, Gemini, and practical AI workflows for busy teams.")))
+  ),
+  h("p", { className: "aside" }, "Best fit: teams that need senior execution, architecture, and production hardening.")
+);
 
 // --- Case Studies ---
-const CasesContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
-  kicker: "03 \u2014 selected work",
-  title: "Things I've shipped."
-}, /*#__PURE__*/React.createElement("div", {
-  className: "case"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "case-meta"
-}, /*#__PURE__*/React.createElement("span", {
-  className: "case-co"
-}, "Bankaya"), /*#__PURE__*/React.createElement("span", {
-  className: "case-role"
-}, "Lead Data Scientist \xB7 2024 \u2014 now")), /*#__PURE__*/React.createElement("p", {
-  className: "case-line"
-}, "Cut model delivery cycles from ", /*#__PURE__*/React.createElement("em", null, "4\u20136 months"), " to ", /*#__PURE__*/React.createElement("em", null, "2\u20134 weeks"), " by standardizing the ML platform across financial products."), /*#__PURE__*/React.createElement("p", {
-  className: "case-line"
-}, "Designed an offline/online feature store + sub-second inference infra for credit & fraud decisioning."), /*#__PURE__*/React.createElement("p", {
-  className: "case-line"
-}, "Shipped agentic AI diagnostic workflows for stakeholder reporting.")), /*#__PURE__*/React.createElement("div", {
-  className: "case"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "case-meta"
-}, /*#__PURE__*/React.createElement("span", {
-  className: "case-co"
-}, "Clara"), /*#__PURE__*/React.createElement("span", {
-  className: "case-role"
-}, "Data Scientist \xB7 2022 \u2014 2024")), /*#__PURE__*/React.createElement("p", {
-  className: "case-line"
-}, "Replaced rule-based underwriting with an ML credit engine \u2014", /*#__PURE__*/React.createElement("em", null, " doubled approval rates"), " while preserving portfolio risk."), /*#__PURE__*/React.createElement("p", {
-  className: "case-line"
-}, "Integrated graph-based fraud detection into automated decisioning.")), /*#__PURE__*/React.createElement("div", {
-  className: "case"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "case-meta"
-}, /*#__PURE__*/React.createElement("span", {
-  className: "case-co"
-}, "Nubank"), /*#__PURE__*/React.createElement("span", {
-  className: "case-role"
-}, "Senior Data Scientist \xB7 2021 \u2014 2022")), /*#__PURE__*/React.createElement("p", {
-  className: "case-line"
-}, "Real-time fraud models for high-volume transactions; sub-second approval pipelines across millions of events.")), /*#__PURE__*/React.createElement("div", {
-  className: "case"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "case-meta"
-}, /*#__PURE__*/React.createElement("span", {
-  className: "case-co"
-}, "True Home, HITSS, BBVA, Bancaribe"), /*#__PURE__*/React.createElement("span", {
-  className: "case-role"
-}, "2016 \u2014 2021")), /*#__PURE__*/React.createElement("p", {
-  className: "case-line"
-}, "Underwriting & pricing models \xB7 AWS microservices \xB7 early risk & data roles across LATAM fintech and banking.")));
+const CasesContent = () => h(ContentBlock, { kicker: "03 — selected work", title: "Things I've shipped." },
+  h("div", { className: "case" },
+    h("div", { className: "case-meta" }, h("span", { className: "case-co" }, "Bankaya"), h("span", { className: "case-role" }, "Lead Data Scientist · 2024 — now")),
+    h("ul", { className: "case-points" },
+      h("li", null, "Cut model delivery from ", h("em", null, "4–6 months"), " to ", h("em", null, "2–4 weeks"), "."),
+      h("li", null, "Built feature store + sub-second credit/fraud inference."),
+      h("li", null, "Shipped agentic diagnostics for stakeholder reporting.")
+    )
+  ),
+  h("div", { className: "case" },
+    h("div", { className: "case-meta" }, h("span", { className: "case-co" }, "Clara"), h("span", { className: "case-role" }, "Data Scientist · 2022 — 2024")),
+    h("ul", { className: "case-points" },
+      h("li", null, "Replaced rules with an ML credit engine; ", h("em", null, "doubled approvals"), "."),
+      h("li", null, "Added graph-based fraud detection to automated decisions.")
+    )
+  ),
+  h("div", { className: "case" },
+    h("div", { className: "case-meta" }, h("span", { className: "case-co" }, "Nubank"), h("span", { className: "case-role" }, "Senior Data Scientist · 2021 — 2022")),
+    h("ul", { className: "case-points" },
+      h("li", null, "Real-time fraud models for high-volume transactions."),
+      h("li", null, "Sub-second approval pipelines across millions of events.")
+    )
+  ),
+  h("div", { className: "case" },
+    h("div", { className: "case-meta" }, h("span", { className: "case-co" }, "True Home, HITSS, BBVA, Bancaribe"), h("span", { className: "case-role" }, "2016 — 2021")),
+    h("ul", { className: "case-points" },
+      h("li", null, "Underwriting and pricing models."),
+      h("li", null, "AWS microservices and early risk/data roles across LATAM.")
+    )
+  )
+);
 
 // --- Now ---
-const NowContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
-  kicker: "04 \u2014 now",
-  title: "What I'm up to."
-}, /*#__PURE__*/React.createElement("p", {
-  className: "now-date"
-}, "As of November 2026 \u2014 Mexico City, GMT-6"), /*#__PURE__*/React.createElement("ul", {
-  className: "now-list"
-}, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "now-tag"
-}, "building"), "agentic ML diagnostic workflows at Bankaya"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "now-tag"
-}, "studying"), "MSc in AI at Woolf \u2014 currently in scalable systems & real-time inference"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "now-tag"
-}, "writing"), "a slow series of notes on what production ML actually costs"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "now-tag"
-}, "open to"), "2 fractional engagements starting Q1 2027"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "now-tag"
-}, "reading"), /*#__PURE__*/React.createElement("em", null, "Designing Machine Learning Systems"), " \u2014 Chip Huyen"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-  className: "now-tag"
-}, "tinkering"), "a small LightGBM monitoring dashboard in spare hours")), /*#__PURE__*/React.createElement("p", {
-  className: "aside"
-}, "This page updates roughly every month. Last touched today."));
+const NowContent = () => h(ContentBlock, { kicker: "04 — now", title: "What I'm up to." },
+  h("p", { className: "now-date" }, "As of November 2026 — Mexico City, GMT-6"),
+  h("ul", { className: "now-list" },
+    h("li", null, h("span", { className: "now-tag" }, "building"), "agentic ML diagnostics at Bankaya"),
+    h("li", null, h("span", { className: "now-tag" }, "studying"), "MSc in AI: scalable systems + real-time inference"),
+    h("li", null, h("span", { className: "now-tag" }, "writing"), "notes on what production ML actually costs"),
+    h("li", null, h("span", { className: "now-tag" }, "open to"), "2 fractional engagements starting Q1 2027"),
+    h("li", null, h("span", { className: "now-tag" }, "reading"), h("em", null, "Designing Machine Learning Systems"), " — Chip Huyen"),
+    h("li", null, h("span", { className: "now-tag" }, "tinkering"), "a small LightGBM monitoring dashboard")
+  ),
+  h("p", { className: "aside" }, "This page updates roughly every month. Last touched today.")
+);
 
 // --- Writing ---
-const WritingContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
-  kicker: "05 \u2014 notes",
-  title: "Writing."
-}, /*#__PURE__*/React.createElement("p", {
-  className: "lede"
-}, "Short, mostly unfinished. I publish when the idea is more useful than it is polished."), /*#__PURE__*/React.createElement("ul", {
-  className: "writing-list"
-}, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("div", {
-  className: "w-meta"
-}, "draft \xB7 est. dec 2026"), /*#__PURE__*/React.createElement("div", {
-  className: "w-title"
-}, "Notebooks are not the problem."), /*#__PURE__*/React.createElement("div", {
-  className: "w-blurb"
-}, "On why \"we'll productionize it later\" is the most expensive sentence in ML.")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("div", {
-  className: "w-meta"
-}, "draft \xB7 est. jan 2027"), /*#__PURE__*/React.createElement("div", {
-  className: "w-title"
-}, "Feature stores, plainly."), /*#__PURE__*/React.createElement("div", {
-  className: "w-blurb"
-}, "A short, honest tour of when you actually need one (and when you don't).")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("div", {
-  className: "w-meta"
-}, "notes"), /*#__PURE__*/React.createElement("div", {
-  className: "w-title"
-}, "Drift is a UX problem."), /*#__PURE__*/React.createElement("div", {
-  className: "w-blurb"
-}, "A scattered set of thoughts on monitoring as conversation, not alarm.")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("div", {
-  className: "w-meta"
-}, "talks"), /*#__PURE__*/React.createElement("div", {
-  className: "w-title"
-}, "Practical AI adoption \u2014 for teams that already have too many tools."), /*#__PURE__*/React.createElement("div", {
-  className: "w-blurb"
-}, "A talk I keep refining. Available on request."))), /*#__PURE__*/React.createElement("p", {
-  className: "aside"
-}, "\u2731 this corner of the desk is intentionally a little empty."));
+const WritingContent = () => h(ContentBlock, { kicker: "05 — notes", title: "Writing." },
+  h("p", { className: "lede" }, "Short notes on production ML, AI workflows, and the work between prototype and launch."),
+  h("ul", { className: "writing-list" },
+    h("li", null, h("div", { className: "w-meta" }, "draft · est. dec 2026"), h("div", { className: "w-title" }, "Notebooks are not the problem."), h("div", { className: "w-blurb" }, "On why \"we'll productionize it later\" is the most expensive sentence in ML.")),
+    h("li", null, h("div", { className: "w-meta" }, "draft · est. jan 2027"), h("div", { className: "w-title" }, "Feature stores, plainly."), h("div", { className: "w-blurb" }, "A short, honest tour of when you actually need one (and when you don't).")),
+    h("li", null, h("div", { className: "w-meta" }, "notes"), h("div", { className: "w-title" }, "Drift is a UX problem."), h("div", { className: "w-blurb" }, "A scattered set of thoughts on monitoring as conversation, not alarm.")),
+    h("li", null, h("div", { className: "w-meta" }, "talks"), h("div", { className: "w-title" }, "Practical AI adoption — for teams that already have too many tools."), h("div", { className: "w-blurb" }, "A talk I keep refining. Available on request."))
+  ),
+  h("p", { className: "aside" }, "✱ this corner of the desk is intentionally a little empty.")
+);
 
 // --- Contact ---
-const ContactContent = () => /*#__PURE__*/React.createElement(ContentBlock, {
-  kicker: "06 \u2014 say hello",
-  title: "Let's talk."
-}, /*#__PURE__*/React.createElement("p", {
-  className: "lede"
-}, "I read everything. The fastest way to me is email or a 30-minute intro call."), /*#__PURE__*/React.createElement("div", {
-  className: "contact-grid"
-}, /*#__PURE__*/React.createElement("a", {
-  className: "contact-card",
-  href: "mailto:mariafrancysucv@gmail.com"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "cc-label"
-}, "email"), /*#__PURE__*/React.createElement("div", {
-  className: "cc-value"
-}, "mariafrancysucv@gmail.com"), /*#__PURE__*/React.createElement("div", {
-  className: "cc-aside"
-}, "usually within a day")), /*#__PURE__*/React.createElement("a", {
-  className: "contact-card",
-  href: "mailto:mariafrancysucv@gmail.com?subject=30-minute%20intro%20call&body=Hi%20Francys%2C%0A%0AI%27d%20like%20to%20schedule%20a%2030-minute%20intro%20call.%0A%0AHere%20are%20a%20few%20times%20that%20work%20for%20me%3A%0A-"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "cc-label"
-}, "book a call"), /*#__PURE__*/React.createElement("div", {
-  className: "cc-value"
-}, "30-min intro \u2192"), /*#__PURE__*/React.createElement("div", {
-  className: "cc-aside"
-}, "no pitch, just a chat")), /*#__PURE__*/React.createElement("a", {
-  className: "contact-card",
-  href: "https://www.linkedin.com/in/francys-lanza-garc%C3%ADa-784865128/",
-  target: "_blank",
-  rel: "noopener noreferrer"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "cc-label"
-}, "linkedin"), /*#__PURE__*/React.createElement("div", {
-  className: "cc-value"
-}, "/in/francys-lanza-garcía"), /*#__PURE__*/React.createElement("div", {
-  className: "cc-aside"
-}, "DMs open")), /*#__PURE__*/React.createElement("a", {
-  className: "contact-card",
-  href: "uploads/Francys_Lanza_Garcia_CV_2026.docx",
-  download: true
-}, /*#__PURE__*/React.createElement("div", {
-  className: "cc-label"
-}, "cv"), /*#__PURE__*/React.createElement("div", {
-  className: "cc-value"
-}, "download cv \u2192"), /*#__PURE__*/React.createElement("div", {
-  className: "cc-aside"
-}, "2026 edition · docx"))), /*#__PURE__*/React.createElement("p", {
-  className: "aside"
-}, "Based in Mexico, working remotely. Comfortable across LATAM, US, and EU hours."));
+const ContactContent = () => h(ContentBlock, { kicker: "06 — say hello", title: "Let's talk." },
+  h("p", { className: "lede" }, "I read everything. The fastest way to me is email or a 30-minute intro call."),
+  h("div", { className: "contact-grid" },
+    h("a", { className: "contact-card", href: "mailto:mariafrancysucv@gmail.com" }, h("div", { className: "cc-label" }, "email"), h("div", { className: "cc-value" }, "mariafrancysucv@gmail.com"), h("div", { className: "cc-aside" }, "usually within a day")),
+    h("a", { className: "contact-card", href: "mailto:mariafrancysucv@gmail.com?subject=30-minute%20intro%20call&body=Hi%20Francys%2C%0A%0AI%27d%20like%20to%20schedule%20a%2030-minute%20intro%20call.%0A%0AHere%20are%20a%20few%20times%20that%20work%20for%20me%3A%0A-" }, h("div", { className: "cc-label" }, "book a call"), h("div", { className: "cc-value" }, "30-min intro →"), h("div", { className: "cc-aside" }, "no pitch, just a chat")),
+    h("a", { className: "contact-card", href: "https://www.linkedin.com/in/francys-lanza-garc%C3%ADa-784865128/", target: "_blank", rel: "noopener noreferrer" }, h("div", { className: "cc-label" }, "linkedin"), h("div", { className: "cc-value" }, "/in/francys-lanza-garcía"), h("div", { className: "cc-aside" }, "DMs open")),
+    h("a", { className: "contact-card", href: "uploads/Francys_Lanza_Garcia_CV_2026.docx", download: true }, h("div", { className: "cc-label" }, "cv"), h("div", { className: "cc-value" }, "download cv →"), h("div", { className: "cc-aside" }, "2026 edition · docx"))
+  ),
+  h("p", { className: "aside" }, "Based in Mexico, working remotely. Comfortable across LATAM, US, and EU hours.")
+);
+
 window.WindowContent = {
   about: AboutContent,
   services: ServicesContent,
   cases: CasesContent,
   now: NowContent,
   writing: WritingContent,
-  contact: ContactContent
+  contact: ContactContent,
 };

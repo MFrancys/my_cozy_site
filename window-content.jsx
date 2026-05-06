@@ -15,15 +15,11 @@ const AboutContent = () => (
       I'm a Data Scientist & ML Engineer based in Mexico, with{" "}
       <em>six years</em> of building production machine learning in fintech.
     </p>
-    <p>
-      I help teams move from notebooks and fragmented pipelines to
-      deployable, monitored, governed ML systems — the kind that survive
-      a Tuesday morning incident and a Friday afternoon audit.
-    </p>
-    <p>
-      Mostly I work in Databricks. Mostly the problems are credit risk,
-      fraud, and the quiet infrastructure that lets models actually ship.
-    </p>
+    <ul className="scan-list">
+      <li><strong>Production ML:</strong> deployable, monitored, governed systems.</li>
+      <li><strong>Fintech focus:</strong> credit risk, fraud, and real-time decisioning.</li>
+      <li><strong>Tooling:</strong> Databricks, ML platforms, feature stores, model lifecycle.</li>
+    </ul>
     <p className="aside">
       Off the clock — I mentor, I speak about practical AI adoption,
       and I'm finishing my MSc in AI at Woolf University.
@@ -47,39 +43,28 @@ const ServicesContent = () => (
               <span className="sub-num">a.</span>
               <div>
                 <strong>Design, build & deploy production ML systems</strong>
-                <p>
-                  ML platform setup, model lifecycle, deployment standards.
-                  Delivery cycles cut from months to weeks.
-                </p>
+                <p>Platform setup, lifecycle standards, weeks-not-months delivery.</p>
               </div>
             </li>
             <li>
               <span className="sub-num">b.</span>
               <div>
                 <strong>Feature store design</strong>
-                <p>
-                  Offline + online stores, governed feature reuse across
-                  financial products.
-                </p>
+                <p>Offline + online stores, governed reuse across products.</p>
               </div>
             </li>
             <li>
               <span className="sub-num">c.</span>
               <div>
                 <strong>Credit risk & fraud modeling</strong>
-                <p>
-                  Underwriting engines, real-time decisioning, graph-based
-                  fraud detection.
-                </p>
+                <p>Underwriting, real-time decisions, graph-based fraud detection.</p>
               </div>
             </li>
             <li>
               <span className="sub-num">d.</span>
               <div>
                 <strong>Monitoring & drift detection</strong>
-                <p>
-                  Detection frameworks, automated retraining, model governance.
-                </p>
+                <p>Drift signals, retraining triggers, governance routines.</p>
               </div>
             </li>
           </ol>
@@ -89,23 +74,19 @@ const ServicesContent = () => (
         <span className="num">ii.</span>
         <div>
           <strong>Technical Mentorship for Data Scientists</strong>
-          <p>Structured 1:1 program to land your first role or reach the next level.</p>
+          <p>Structured 1:1 guidance for role transitions and senior growth.</p>
         </div>
       </li>
       <li>
         <span className="num">iii.</span>
         <div>
           <strong>Productivity & Automation with AI Tools</strong>
-          <p>
-            For professionals and teams ready to work smarter with Claude,
-            Gemini, and modern AI workflows.
-          </p>
+          <p>Claude, Gemini, and practical AI workflows for busy teams.</p>
         </div>
       </li>
     </ul>
     <p className="aside">
-      Best fit: project-based engagements where a team needs senior
-      execution, architecture, and production hardening.
+      Best fit: teams that need senior execution, architecture, and production hardening.
     </p>
   </ContentBlock>
 );
@@ -118,50 +99,41 @@ const CasesContent = () => (
         <span className="case-co">Bankaya</span>
         <span className="case-role">Lead Data Scientist · 2024 — now</span>
       </div>
-      <p className="case-line">
-        Cut model delivery cycles from <em>4–6 months</em> to <em>2–4 weeks</em> by
-        standardizing the ML platform across financial products.
-      </p>
-      <p className="case-line">
-        Designed an offline/online feature store + sub-second inference
-        infra for credit & fraud decisioning.
-      </p>
-      <p className="case-line">
-        Shipped agentic AI diagnostic workflows for stakeholder reporting.
-      </p>
+      <ul className="case-points">
+        <li>Cut model delivery from <em>4–6 months</em> to <em>2–4 weeks</em>.</li>
+        <li>Built feature store + sub-second credit/fraud inference.</li>
+        <li>Shipped agentic diagnostics for stakeholder reporting.</li>
+      </ul>
     </div>
     <div className="case">
       <div className="case-meta">
         <span className="case-co">Clara</span>
         <span className="case-role">Data Scientist · 2022 — 2024</span>
       </div>
-      <p className="case-line">
-        Replaced rule-based underwriting with an ML credit engine —
-        <em> doubled approval rates</em> while preserving portfolio risk.
-      </p>
-      <p className="case-line">
-        Integrated graph-based fraud detection into automated decisioning.
-      </p>
+      <ul className="case-points">
+        <li>Replaced rules with an ML credit engine; <em>doubled approvals</em>.</li>
+        <li>Added graph-based fraud detection to automated decisions.</li>
+      </ul>
     </div>
     <div className="case">
       <div className="case-meta">
         <span className="case-co">Nubank</span>
         <span className="case-role">Senior Data Scientist · 2021 — 2022</span>
       </div>
-      <p className="case-line">
-        Real-time fraud models for high-volume transactions; sub-second
-        approval pipelines across millions of events.
-      </p>
+      <ul className="case-points">
+        <li>Real-time fraud models for high-volume transactions.</li>
+        <li>Sub-second approval pipelines across millions of events.</li>
+      </ul>
     </div>
     <div className="case">
       <div className="case-meta">
         <span className="case-co">True Home, HITSS, BBVA, Bancaribe</span>
         <span className="case-role">2016 — 2021</span>
       </div>
-      <p className="case-line">
-        Underwriting & pricing models · AWS microservices · early risk &
-        data roles across LATAM fintech and banking.
-      </p>
+      <ul className="case-points">
+        <li>Underwriting and pricing models.</li>
+        <li>AWS microservices and early risk/data roles across LATAM.</li>
+      </ul>
     </div>
   </ContentBlock>
 );
@@ -173,15 +145,15 @@ const NowContent = () => (
     <ul className="now-list">
       <li>
         <span className="now-tag">building</span>
-        agentic ML diagnostic workflows at Bankaya
+        agentic ML diagnostics at Bankaya
       </li>
       <li>
         <span className="now-tag">studying</span>
-        MSc in AI at Woolf — currently in scalable systems & real-time inference
+        MSc in AI: scalable systems + real-time inference
       </li>
       <li>
         <span className="now-tag">writing</span>
-        a slow series of notes on what production ML actually costs
+        notes on what production ML actually costs
       </li>
       <li>
         <span className="now-tag">open to</span>
@@ -193,7 +165,7 @@ const NowContent = () => (
       </li>
       <li>
         <span className="now-tag">tinkering</span>
-        a small LightGBM monitoring dashboard in spare hours
+        a small LightGBM monitoring dashboard
       </li>
     </ul>
     <p className="aside">
@@ -206,8 +178,7 @@ const NowContent = () => (
 const WritingContent = () => (
   <ContentBlock kicker="05 — notes" title="Writing.">
     <p className="lede">
-      Short, mostly unfinished. I publish when the idea is more useful
-      than it is polished.
+      Short notes on production ML, AI workflows, and the work between prototype and launch.
     </p>
     <ul className="writing-list">
       <li>
