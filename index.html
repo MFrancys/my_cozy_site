@@ -3,7 +3,27 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Francys Lanza — a cozy corner of the internet</title>
+<title>Francys Lanza — ML systems for fintech teams</title>
+<meta name="description" content="Francys Lanza is a Data Scientist and ML Engineer helping fintech teams ship reliable, scalable, cost-efficient real-time ML systems beyond the prototype." />
+<meta name="author" content="Francys Lanza" />
+<link rel="canonical" href="https://mfrancys.github.io/my_cozy_site/" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<meta name="theme-color" content="#f7edda" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Francys Lanza" />
+<meta property="og:title" content="Francys Lanza — ML systems for fintech teams" />
+<meta property="og:description" content="Production ML, fintech decisioning, mentorship, and practical AI workflows — built calmly beyond the prototype." />
+<meta property="og:url" content="https://mfrancys.github.io/my_cozy_site/" />
+<meta property="og:image" content="https://mfrancys.github.io/my_cozy_site/uploads/social-preview.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="A cozy hand-drawn portfolio homepage for Francys Lanza with ML consulting doodles." />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Francys Lanza — ML systems for fintech teams" />
+<meta name="twitter:description" content="Production ML, fintech decisioning, mentorship, and practical AI workflows — built calmly beyond the prototype." />
+<meta name="twitter:image" content="https://mfrancys.github.io/my_cozy_site/uploads/social-preview.png" />
 <style>
 /* Cozy internet space — Francys Lanza */
 
@@ -55,7 +75,7 @@ html, body {
 }
 
 .app {
-  background: var(--paper) url("uploads/Francys Home-clean-intro.png") center center / contain no-repeat;
+  background: var(--paper) url("uploads/Francys Home-clean-intro-contact.png") center center / contain no-repeat;
 }
 
 /* Subtle paper grain via SVG noise */
@@ -812,7 +832,7 @@ html, body {
 }
 .w-title {
   font-family: var(--font-hand);
-  font-size: 23px;
+  font-size: 22px;
   color: var(--ink);
   margin-bottom: 4px;
   line-height: 1.12;
@@ -1165,6 +1185,57 @@ html, body {
   border-radius: 999px;
   background: #6f815b;
   transform: rotate(-1.5deg);
+}
+
+.contact-label-replacement {
+  position: absolute;
+  left: 50%;
+  top: 90.1%;
+  width: 300px;
+  min-height: 78px;
+  transform: translate(-50%, -50%) rotate(-1.5deg);
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-family: var(--font-hand);
+  font-size: 23px;
+  font-weight: 500;
+  line-height: .88;
+  color: var(--ink);
+  letter-spacing: .005em;
+}
+.contact-label-replacement span:first-child {
+  position: relative;
+}
+.contact-label-replacement span:first-child::after {
+  content: "";
+  position: absolute;
+  right: -28px;
+  top: 8px;
+  width: 20px;
+  height: 20px;
+  background:
+    linear-gradient(#9b4b32, #9b4b32) 2px 2px / 8px 2px no-repeat,
+    linear-gradient(#9b4b32, #9b4b32) 6px 9px / 12px 2px no-repeat,
+    linear-gradient(#9b4b32, #9b4b32) 2px 16px / 8px 2px no-repeat;
+  border-radius: 999px;
+  transform: rotate(-18deg);
+  opacity: .78;
+}
+.contact-label-replacement::after {
+  content: "";
+  position: absolute;
+  left: 92px;
+  right: 92px;
+  bottom: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: #d89b24;
+  transform: rotate(-1.8deg);
 }
 
 /* Generated about doodle replacement */
@@ -2285,7 +2356,7 @@ const DESK_OBJECTS = [{
   w: 128
 }, {
   id: "contact",
-  label: "say hello",
+  label: "say hello & let’s build ML systems",
   Icon: DeskIcons.MailboxDoodle,
   pos: {
     left: "50%",
@@ -2704,6 +2775,13 @@ function AboutPolaroid() {
   })));
 }
 
+function ContactLabelReplacement() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "contact-label-replacement",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("span", null, "say hello &"), /*#__PURE__*/React.createElement("span", null, "let’s build ML systems"));
+}
+
 function DeskFooterNote() {
   return /*#__PURE__*/React.createElement("div", {
     className: "desk-footer-note",
@@ -2857,7 +2935,7 @@ function App() {
     className: "hero-sub"
   }, "click anything \xB7 drag the windows \xB7 stay a while")), /*#__PURE__*/React.createElement(HeroTextReplacement, null), /*#__PURE__*/React.createElement(PetCorner, null), /*#__PURE__*/React.createElement("div", {
     className: "desk-layer"
-  }, /*#__PURE__*/React.createElement(NowReplacement, null), /*#__PURE__*/React.createElement(AboutPolaroid, null), filteredObjects.map(obj => /*#__PURE__*/React.createElement(DeskObject, {
+  }, /*#__PURE__*/React.createElement(NowReplacement, null), /*#__PURE__*/React.createElement(AboutPolaroid, null), /*#__PURE__*/React.createElement(ContactLabelReplacement, null), filteredObjects.map(obj => /*#__PURE__*/React.createElement(DeskObject, {
     key: obj.id,
     obj: obj,
     onOpen: open,

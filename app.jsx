@@ -26,7 +26,7 @@ const DESK_OBJECTS = [
     pos: { left: "76%", top: "61%" }, sway: 4.0, w: 128,
   },
   {
-    id: "contact", label: "say hello", Icon: DeskIcons.MailboxDoodle,
+    id: "contact", label: "say hello & let’s build ML systems", Icon: DeskIcons.MailboxDoodle,
     pos: { left: "50%", top: "82%" }, sway: 5.3, w: 118,
   },
 ];
@@ -272,6 +272,15 @@ function AboutPolaroid() {
   );
 }
 
+function ContactLabelReplacement() {
+  return (
+    <div className="contact-label-replacement" aria-hidden="true">
+      <span>say hello &amp;</span>
+      <span>let’s build ML systems</span>
+    </div>
+  );
+}
+
 function DeskFooterNote() {
   return (
     <div className="desk-footer-note" aria-hidden="true">
@@ -431,6 +440,7 @@ function App() {
       <div className="desk-layer">
         <NowReplacement />
         <AboutPolaroid />
+        <ContactLabelReplacement />
         {filteredObjects.map(obj => (
           <DeskObject
             key={obj.id}

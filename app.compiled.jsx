@@ -56,7 +56,7 @@ const DESK_OBJECTS = [{
   w: 128
 }, {
   id: "contact",
-  label: "say hello",
+  label: "say hello & let’s build ML systems",
   Icon: DeskIcons.MailboxDoodle,
   pos: {
     left: "50%",
@@ -475,6 +475,13 @@ function AboutPolaroid() {
   })));
 }
 
+function ContactLabelReplacement() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "contact-label-replacement",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("span", null, "say hello &"), /*#__PURE__*/React.createElement("span", null, "let’s build ML systems"));
+}
+
 function DeskFooterNote() {
   return /*#__PURE__*/React.createElement("div", {
     className: "desk-footer-note",
@@ -628,7 +635,7 @@ function App() {
     className: "hero-sub"
   }, "click anything \xB7 drag the windows \xB7 stay a while")), /*#__PURE__*/React.createElement(HeroTextReplacement, null), /*#__PURE__*/React.createElement(PetCorner, null), /*#__PURE__*/React.createElement("div", {
     className: "desk-layer"
-  }, /*#__PURE__*/React.createElement(NowReplacement, null), /*#__PURE__*/React.createElement(AboutPolaroid, null), filteredObjects.map(obj => /*#__PURE__*/React.createElement(DeskObject, {
+  }, /*#__PURE__*/React.createElement(NowReplacement, null), /*#__PURE__*/React.createElement(AboutPolaroid, null), /*#__PURE__*/React.createElement(ContactLabelReplacement, null), filteredObjects.map(obj => /*#__PURE__*/React.createElement(DeskObject, {
     key: obj.id,
     obj: obj,
     onOpen: open,
