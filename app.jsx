@@ -215,6 +215,19 @@ function StatusBar({ soundOn, onToggleSound }) {
   );
 }
 
+
+function HeroTextReplacement() {
+  return (
+    <div className="hero-text-replacement" aria-label="Francys introduction">
+      <p className="hero-text-line hero-text-name">Hi, I’m <em>Francys</em>.</p>
+      <p className="hero-text-line hero-text-role">I’m a <span>Data Scientist &amp; ML Engineer</span></p>
+      <p className="hero-text-line hero-text-ship">who helps fintechs ship</p>
+      <p className="hero-text-line hero-text-systems">reliable, scalable, and cost-efficient <em>real-time ML systems</em></p>
+      <p className="hero-text-line hero-text-calm">— calmly, without the drama.</p>
+    </div>
+  );
+}
+
 function NowReplacement() {
   const dots = Array.from({ length: 28 }, (_, i) => ({
     x: 27 + (i % 7) * 7.4,
@@ -400,6 +413,8 @@ function App() {
           click anything · drag the windows · stay a while
         </div>
       </div>
+
+      <HeroTextReplacement />
 
       <PetCorner />
 

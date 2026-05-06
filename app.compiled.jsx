@@ -384,6 +384,24 @@ function StatusBar({
   }, soundOn ? "♪ sound on" : "♪ sound off"));
 }
 
+
+function HeroTextReplacement() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "hero-text-replacement",
+    "aria-label": "Francys introduction"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "hero-text-line hero-text-name"
+  }, "Hi, I’m ", /*#__PURE__*/React.createElement("em", null, "Francys"), "."), /*#__PURE__*/React.createElement("p", {
+    className: "hero-text-line hero-text-role"
+  }, "I’m a ", /*#__PURE__*/React.createElement("span", null, "Data Scientist & ML Engineer")), /*#__PURE__*/React.createElement("p", {
+    className: "hero-text-line hero-text-ship"
+  }, "who helps fintechs ship"), /*#__PURE__*/React.createElement("p", {
+    className: "hero-text-line hero-text-systems"
+  }, "reliable, scalable, and cost-efficient ", /*#__PURE__*/React.createElement("em", null, "real-time ML systems")), /*#__PURE__*/React.createElement("p", {
+    className: "hero-text-line hero-text-calm"
+  }, "— calmly, without the drama."));
+}
+
 function NowReplacement() {
   const dots = Array.from({
     length: 28
@@ -599,7 +617,7 @@ function App() {
     className: "hl"
   }, "Lead Data Scientist"), " & ML engineer who helps fintechs ship ", /*#__PURE__*/React.createElement("em", null, "production"), " machine learning \u2014 calmly, on Databricks, without the drama."), /*#__PURE__*/React.createElement("div", {
     className: "hero-sub"
-  }, "click anything \xB7 drag the windows \xB7 stay a while")), /*#__PURE__*/React.createElement(PetCorner, null), /*#__PURE__*/React.createElement("div", {
+  }, "click anything \xB7 drag the windows \xB7 stay a while")), /*#__PURE__*/React.createElement(HeroTextReplacement, null), /*#__PURE__*/React.createElement(PetCorner, null), /*#__PURE__*/React.createElement("div", {
     className: "desk-layer"
   }, /*#__PURE__*/React.createElement(NowReplacement, null), /*#__PURE__*/React.createElement(AboutPolaroid, null), filteredObjects.map(obj => /*#__PURE__*/React.createElement(DeskObject, {
     key: obj.id,
