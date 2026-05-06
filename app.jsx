@@ -220,10 +220,10 @@ function HeroTextReplacement() {
   return (
     <div className="hero-text-replacement" aria-label="Francys introduction">
       <p className="hero-text-line hero-text-name">Hi, I’m <em>Francys</em>.</p>
-      <p className="hero-text-line hero-text-role">I’m a <span>Data Scientist &amp; ML Engineer</span></p>
-      <p className="hero-text-line hero-text-ship">who helps fintechs ship</p>
+      <p className="hero-text-line hero-text-role">I’m a <span>Data Scientist &amp; ML Engineer</span> who helps fintechs ship</p>
       <p className="hero-text-line hero-text-systems">reliable, scalable, and cost-efficient <em>real-time ML systems</em></p>
-      <p className="hero-text-line hero-text-calm">— calmly, without the drama.</p>
+      <p className="hero-text-line hero-text-calm">— with calm execution, business impact in mind, and thoughtful engineering</p>
+      <p className="hero-text-line hero-text-headaches">that works beyond the prototype, without the headaches.</p>
     </div>
   );
 }

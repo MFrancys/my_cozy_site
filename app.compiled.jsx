@@ -393,13 +393,13 @@ function HeroTextReplacement() {
     className: "hero-text-line hero-text-name"
   }, "Hi, I’m ", /*#__PURE__*/React.createElement("em", null, "Francys"), "."), /*#__PURE__*/React.createElement("p", {
     className: "hero-text-line hero-text-role"
-  }, "I’m a ", /*#__PURE__*/React.createElement("span", null, "Data Scientist & ML Engineer")), /*#__PURE__*/React.createElement("p", {
-    className: "hero-text-line hero-text-ship"
-  }, "who helps fintechs ship"), /*#__PURE__*/React.createElement("p", {
+  }, "I’m a ", /*#__PURE__*/React.createElement("span", null, "Data Scientist & ML Engineer"), " who helps fintechs ship"), /*#__PURE__*/React.createElement("p", {
     className: "hero-text-line hero-text-systems"
   }, "reliable, scalable, and cost-efficient ", /*#__PURE__*/React.createElement("em", null, "real-time ML systems")), /*#__PURE__*/React.createElement("p", {
     className: "hero-text-line hero-text-calm"
-  }, "— calmly, without the drama."));
+  }, "— with calm execution, business impact in mind, and thoughtful engineering"), /*#__PURE__*/React.createElement("p", {
+    className: "hero-text-line hero-text-headaches"
+  }, "that works beyond the prototype, without the headaches."));
 }
 
 function NowReplacement() {
