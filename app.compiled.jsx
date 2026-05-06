@@ -482,6 +482,12 @@ function DeskFooterNote() {
     className: "footer-tape"
   }));
 }
+
+function AvailabilityFooter() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "availability-footer"
+  }, "Available for fintech ML consulting, mentorship, and AI workflow automation.");
+}
 function PetCorner() {
   return /*#__PURE__*/React.createElement("div", {
     className: "pet-corner",
@@ -631,7 +637,7 @@ function App() {
     id: id,
     index: idx,
     onClose: () => close(id)
-  }))), T.cursorTrail && /*#__PURE__*/React.createElement(CursorTrail, null), /*#__PURE__*/React.createElement(DeskFooterNote, null), /*#__PURE__*/React.createElement(TweaksPanel, {
+  }))), T.cursorTrail && /*#__PURE__*/React.createElement(CursorTrail, null), /*#__PURE__*/React.createElement(DeskFooterNote, null), /*#__PURE__*/React.createElement(AvailabilityFooter, null), /*#__PURE__*/React.createElement(TweaksPanel, {
     title: "Tweaks"
   }, /*#__PURE__*/React.createElement(TweakSection, {
     label: "aesthetic"

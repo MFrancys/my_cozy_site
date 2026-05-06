@@ -282,6 +282,14 @@ function DeskFooterNote() {
   );
 }
 
+function AvailabilityFooter() {
+  return (
+    <div className="availability-footer">
+      Available for fintech ML consulting, mentorship, and AI workflow automation.
+    </div>
+  );
+}
+
 function PetCorner() {
   return (
     <div className="pet-corner" aria-hidden="true">
@@ -443,6 +451,7 @@ function App() {
       {T.cursorTrail && <CursorTrail />}
 
       <DeskFooterNote />
+      <AvailabilityFooter />
 
       {/* Tweaks panel */}
       <TweaksPanel title="Tweaks">

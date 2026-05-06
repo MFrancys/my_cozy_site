@@ -845,6 +845,28 @@ html, body {
 }
 
 /* ================== FOOTER NOTE ================== */
+.availability-footer {
+  position: fixed;
+  left: 50%;
+  bottom: 4.5%;
+  transform: translateX(-50%) rotate(-0.6deg);
+  z-index: 58;
+  max-width: min(720px, 82vw);
+  padding: 8px 18px 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  text-align: center;
+  background: rgba(251, 246, 236, 0.62);
+  border-top: 1px dashed rgba(26, 26, 26, 0.22);
+  border-bottom: 1px dashed rgba(26, 26, 26, 0.18);
+  pointer-events: none;
+}
+@media (max-width: 900px) {
+  .availability-footer { bottom: 2.6%; font-size: 10.5px; padding-inline: 10px; }
+}
+
 .desk-footer-note {
   position: fixed;
   right: 4.5%;
@@ -2648,6 +2670,12 @@ function DeskFooterNote() {
     className: "footer-tape"
   }));
 }
+
+function AvailabilityFooter() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "availability-footer"
+  }, "Available for fintech ML consulting, mentorship, and AI workflow automation.");
+}
 function PetCorner() {
   return /*#__PURE__*/React.createElement("div", {
     className: "pet-corner",
@@ -2797,7 +2825,7 @@ function App() {
     id: id,
     index: idx,
     onClose: () => close(id)
-  }))), T.cursorTrail && /*#__PURE__*/React.createElement(CursorTrail, null), /*#__PURE__*/React.createElement(DeskFooterNote, null), /*#__PURE__*/React.createElement(TweaksPanel, {
+  }))), T.cursorTrail && /*#__PURE__*/React.createElement(CursorTrail, null), /*#__PURE__*/React.createElement(DeskFooterNote, null), /*#__PURE__*/React.createElement(AvailabilityFooter, null), /*#__PURE__*/React.createElement(TweaksPanel, {
     title: "Tweaks"
   }, /*#__PURE__*/React.createElement(TweakSection, {
     label: "aesthetic"
