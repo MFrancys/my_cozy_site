@@ -1,0 +1,23 @@
+# macOS / editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Dependencies / build outputs
+node_modules/
+dist/
+build/
+.cache/
+
+# Local logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Development screenshots and unused generated variants
+screenshots/
+uploads/Screenshot*.png
+uploads/Francys Home.png
+uploads/about-girl-reading.png
+uploads/about-girl-reading-cutout.png
+uploads/about-girl-reading-marker.png
