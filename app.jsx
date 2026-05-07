@@ -217,6 +217,26 @@ function StatusBar({ soundOn, onToggleSound }) {
 }
 
 
+
+function OpeningAnimation() {
+  return (
+    <div className="opening-animation" aria-hidden="true">
+      <div className="opening-inner">
+        <img
+          className="opening-girl"
+          src="francys-illustration.png"
+          alt=""
+        />
+        <div className="opening-hello">
+          <span>hey</span>
+          <span>I’m</span>
+          <strong>Francys</strong>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function HeroTextReplacement() {
   return (
     <div className="hero-text-replacement" aria-label="Francys introduction">
@@ -413,6 +433,7 @@ function App() {
 
   return (
     <div className={`app theme-${T.paperTone} doodle-${T.doodleStyle} ${T.idleSway ? "" : "no-sway"}`}>
+      <OpeningAnimation />
       <div className="paper-grain" />
 
       {/* Decorative scatter */}

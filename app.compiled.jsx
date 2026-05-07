@@ -388,6 +388,21 @@ function StatusBar({
 }
 
 
+function OpeningAnimation() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "opening-animation",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "opening-inner"
+  }, /*#__PURE__*/React.createElement("img", {
+    className: "opening-girl",
+    src: "francys-illustration.png",
+    alt: ""
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "opening-hello"
+  }, /*#__PURE__*/React.createElement("span", null, "hey"), /*#__PURE__*/React.createElement("span", null, "I’m"), /*#__PURE__*/React.createElement("strong", null, "Francys"))));
+}
+
 function HeroTextReplacement() {
   return /*#__PURE__*/React.createElement("div", {
     className: "hero-text-replacement",
@@ -639,7 +654,7 @@ function App() {
   const filteredObjects = T.deskDensity === "sparse" ? DESK_OBJECTS.filter(o => ["about", "cases", "services", "contact"].includes(o.id)) : DESK_OBJECTS;
   return /*#__PURE__*/React.createElement("div", {
     className: `app theme-${T.paperTone} doodle-${T.doodleStyle} ${T.idleSway ? "" : "no-sway"}`
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(OpeningAnimation, null), /*#__PURE__*/React.createElement("div", {
     className: "paper-grain"
   }), T.showScatter && /*#__PURE__*/React.createElement("div", {
     className: "scatter-layer"
