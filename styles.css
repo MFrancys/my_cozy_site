@@ -963,6 +963,71 @@ html, body {
   transform: rotate(34deg);
 }
 
+
+.home-contact-links {
+  position: fixed;
+  right: calc(4.5% + 135px);
+  bottom: calc(6.3% + 86px);
+  z-index: 62;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 17px;
+  transform: translateX(50%);
+}
+.home-contact-links a {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  color: rgba(26, 26, 26, 0.92);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transform: rotate(var(--icon-tilt, -1deg));
+  transition: transform 160ms ease, color 160ms ease;
+}
+.home-contact-links a:nth-child(2) { --icon-tilt: 1.5deg; }
+.home-contact-links a:nth-child(3) { --icon-tilt: -2deg; }
+.home-contact-links a::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  bottom: -4px;
+  height: 2px;
+  border-radius: 999px;
+  background: #d89b24;
+  opacity: 0;
+  transform: rotate(-2deg) scaleX(0.72);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+.home-contact-links a:hover,
+.home-contact-links a:focus-visible {
+  color: var(--ink);
+  transform: translateY(-2px) rotate(var(--icon-tilt, -1deg));
+}
+.home-contact-links a:hover::after,
+.home-contact-links a:focus-visible::after {
+  opacity: 0.95;
+  transform: rotate(-2deg) scaleX(1);
+}
+.home-contact-links svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.home-contact-links svg path {
+  fill: currentColor;
+}
+.home-contact-links .home-contact-mail path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* ================== STATUS BAR ================== */
 .status-bar {
   display: none;
@@ -1020,6 +1085,7 @@ html, body {
   .desk-object-label { font-size: 21px; }
   .pet-corner { transform: scale(0.72); transform-origin: left bottom; left: 4%; bottom: 5%; }
   .desk-footer-note { transform: scale(0.72); transform-origin: right bottom; right: 3%; bottom: 3%; }
+  .home-contact-links { right: calc(3% + 97px); bottom: calc(3% + 66px); transform: translateX(50%) scale(0.9); transform-origin: center bottom; gap: 14px; }
 }
 
 
