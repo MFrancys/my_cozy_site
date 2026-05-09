@@ -9,6 +9,10 @@ dist/
 build/
 .cache/
 
+# Docker secrets — never commit real credentials
+.env
+certbot/cloudflare.ini
+
 # Local logs and temp files
 *.log
 *.tmp
